@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dktx27v5b6ck6"]
+
+[ext_resource type="Shader" uid="uid://cgvlb8nuv22sb" path="res://Shaders/sea_scene.gdshader" id="1_nx36i"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_t1j7f"]
+size = Vector2(40, 40)
+subdivide_width = 100
+subdivide_depth = 100
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yma8c"]
+render_priority = 0
+shader = ExtResource("1_nx36i")
+shader_parameter/wave_height = 1.0
+shader_parameter/wave_frequency = 0.35
+shader_parameter/wave_speed = 1.5
+shader_parameter/albedo = Color(0.26989043, 0.5177837, 0.8613392, 1)
+shader_parameter/albedo2 = Color(0.18443692, 0.3430521, 0.5463472, 1)
+shader_parameter/albedo3 = Color(0.0868148, 0.1685861, 0.29394895, 1)
+shader_parameter/roughness = 0.10000000149012
+
+[node name="SeaScene" type="Node3D" unique_id=387515874]
+
+[node name="SeaMesh" type="MeshInstance3D" parent="." unique_id=151971888]
+mesh = SubResource("PlaneMesh_t1j7f")
+surface_material_override/0 = SubResource("ShaderMaterial_yma8c")

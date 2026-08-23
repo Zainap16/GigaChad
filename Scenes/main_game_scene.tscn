@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cbm3iy64c7q3l"]
+
+[ext_resource type="PackedScene" uid="uid://b0l3sxfrrjqw5" path="res://Scenes/player.tscn" id="2_8mtfu"]
+[ext_resource type="Texture2D" uid="uid://cal8rp5nuh81n" path="res://Assets/GreyboxTextures/greybox_dark_grid.png" id="2_wb2by"]
+[ext_resource type="PackedScene" uid="uid://dktx27v5b6ck6" path="res://Scenes/sea_scene.tscn" id="3_wb2by"]
+[ext_resource type="PackedScene" uid="uid://duamnfufibm1s" path="res://Scenes/surfboard.tscn" id="5_t40n3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bkcmx"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_8mtfu"]
+sky_material = SubResource("ProceduralSkyMaterial_bkcmx")
+
+[sub_resource type="Environment" id="Environment_wb2by"]
+background_mode = 2
+sky = SubResource("Sky_8mtfu")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_syfkn"]
+albedo_texture = ExtResource("2_wb2by")
+uv1_triplanar = true
+
+[node name="MainGameScene" type="Node3D" unique_id=2076651091]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1191174284]
+environment = SubResource("Environment_wb2by")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=776476620]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=519681689 instance=ExtResource("2_8mtfu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4563222, 1, 0)
+
+[node name="floor" type="CSGBox3D" parent="." unique_id=1456495516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.23040771, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_syfkn")
+size = Vector3(32.929443, 0.5391846, 26.682617)
+
+[node name="SeaScene" parent="." unique_id=387515874 instance=ExtResource("3_wb2by")]
+
+[node name="Surfboard" parent="." unique_id=499914239 instance=ExtResource("5_t40n3")]
+transform = Transform3D(0.9999619, 0, 0.008726535, 0, 1, 0, -0.008726535, 0, 0.9999619, 0, 0, 0)
+can_sleep = false

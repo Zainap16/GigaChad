@@ -1,0 +1,147 @@
+extends RigidBody3D
+
+@export_category("Buoyancy")
+##apply an upward force --> simulate "floating"
+@export var buoyancy_strength := 25.0
+##resistance the water applies to the surf board. So the faster you are the moer resistance is applied
+@export var water_drag := 2.0
+@export_category("Wave Following")
+
+@export var wave_follow_strength := 5.0
+@export var wave_follow_damping := 1.5
+@export_category("Wave Movement")
+##moves the surboard forward. Bascially.
+@export var wave_push := 8.0
+
+@onready var front_probe: Marker3D = $BuoyancyPoints/FrontProbe
+@onready var back_probe: Marker3D = $BuoyancyPoints/BackProbe
+@onready var left_probe: Marker3D = $BuoyancyPoints/LeftProbe
+@onready var right_probe: Marker3D = $BuoyancyPoints/RightProbe
+
+
+
+func _physics_process(_delta: float) -> void:
+
+
+	apply_buoyancy(front_probe)
+	apply_buoyancy(back_probe)
+	apply_buoyancy(left_probe)
+	apply_buoyancy(right_probe)
+	
+	apply_wave_following()
+	
+	apply_water_drag()
+	apply_wave_force()
+	#print(
+		#"Y: ", global_position.y,
+		#" | Vel: ", linear_velocity.y,
+		#" | Sleeping: ", sleeping
+	#)
+		
+##Apply an upward force at this particular point.
+func apply_buoyancy(probe: Marker3D) -> void:
+
+	var point := probe.global_position
+
+	var water_height := WaveManager.get_wave_height(point)
+
+	var depth := water_height - point.y
+
+	if depth <= 0.0:
+		return
+
+	var force := Vector3.UP * depth * buoyancy_strength
+
+	var offset := point - global_position
+
+	apply_force(force, offset)
+
+
+func apply_water_drag() -> void:
+
+	var submersion := get_submersion_factor()
+
+	if submersion <= 0.0:
+		return
+
+	var drag_force := -linear_velocity * water_drag * submersion
+
+	apply_central_force(drag_force)
+	
+func apply_wave_force() -> void:
+
+	var wave_velocity := WaveManager.get_wave_velocity()
+	var wave_direction := WaveManager.get_wave_direction()
+
+	var board_velocity := linear_velocity
+
+	var relative_velocity := wave_velocity - board_velocity
+
+	var relative_speed := relative_velocity.dot(wave_direction)
+
+	if relative_speed <= 0.0:
+		return
+
+	var submersion := get_submersion_factor()
+
+	if submersion <= 0.0:
+		return
+
+	var force := (
+		wave_direction
+		* relative_speed
+		* wave_push
+		* submersion
+	)
+
+	apply_central_force(force)
+func get_average_water_height() -> float:
+
+	var probes := [
+		front_probe,
+		back_probe,
+		left_probe,
+		right_probe
+	]
+
+	var total := 0.0
+
+	for probe in probes:
+		total += WaveManager.get_wave_height(
+			probe.global_position
+		)
+
+	return total / probes.size()
+	
+func apply_wave_following() -> void:
+
+	var water_height :float = get_average_water_height()
+
+	var height_difference := water_height - global_position.y
+
+	var force_strength := (
+		height_difference * wave_follow_strength
+		- linear_velocity.y * wave_follow_damping
+	)
+
+	apply_central_force(Vector3.UP * force_strength)
+func get_submersion_factor() -> float:
+
+	var probes := [
+		front_probe,
+		back_probe,
+		left_probe,
+		right_probe
+	]
+
+	var submerged := 0.0
+
+	for probe in probes:
+
+		var point :Vector3= probe.global_position
+		var water_height : float = WaveManager.get_wave_height(point)
+
+		if water_height > point.y:
+			submerged += 1.0
+
+	return submerged / probes.size()

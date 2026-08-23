@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://duamnfufibm1s"]
+
+[ext_resource type="Script" uid="uid://d2hrx706p46ae" path="res://Scripts/surfboard.gd" id="1_wr883"]
+[ext_resource type="Texture2D" uid="uid://c3tjc3ib2n8vo" path="res://Assets/GreyboxTextures/greybox_red_grid.png" id="1_yj6fq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wr883"]
+albedo_texture = ExtResource("1_yj6fq")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_n7llf"]
+material = SubResource("StandardMaterial3D_wr883")
+size = Vector3(0.7, 0.15, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yj6fq"]
+size = Vector3(0.7, 0.15, 3)
+
+[node name="Surfboard" type="RigidBody3D" unique_id=499914239]
+mass = 0.5
+linear_damp = 0.5
+angular_damp = 1.0
+script = ExtResource("1_wr883")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=523786569]
+mesh = SubResource("BoxMesh_n7llf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=878753931]
+shape = SubResource("BoxShape3D_yj6fq")
+debug_color = Color(0.99765736, 0, 0.17119911, 0.41960785)
+
+[node name="BuoyancyPoints" type="Node3D" parent="." unique_id=1366239755]
+
+[node name="FrontProbe" type="Marker3D" parent="BuoyancyPoints" unique_id=1357264908]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.3)
+
+[node name="BackProbe" type="Marker3D" parent="BuoyancyPoints" unique_id=1918912526]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.3)
+
+[node name="LeftProbe" type="Marker3D" parent="BuoyancyPoints" unique_id=1898291557]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0)
+
+[node name="RightProbe" type="Marker3D" parent="BuoyancyPoints" unique_id=157626973]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
