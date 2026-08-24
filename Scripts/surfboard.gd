@@ -12,6 +12,8 @@ extends RigidBody3D
 @export_category("Wave Movement")
 ##moves the surboard forward. Bascially.
 @export var wave_push := 8.0
+@export var wave_rotation_strength := 20.0
+@export var wave_rotation_damping := 5.0
 
 @onready var front_probe: Marker3D = $BuoyancyPoints/FrontProbe
 @onready var back_probe: Marker3D = $BuoyancyPoints/BackProbe
@@ -29,7 +31,7 @@ func _physics_process(_delta: float) -> void:
 	apply_buoyancy(right_probe)
 	
 	apply_wave_following()
-	
+	apply_wave_rotation()
 	apply_water_drag()
 	apply_wave_force()
 	#print(
@@ -56,7 +58,7 @@ func apply_buoyancy(probe: Marker3D) -> void:
 
 	apply_force(force, offset)
 
-
+##slows the board in water
 func apply_water_drag() -> void:
 
 	var submersion := get_submersion_factor()
@@ -65,9 +67,10 @@ func apply_water_drag() -> void:
 		return
 
 	var drag_force := -linear_velocity * water_drag * submersion
-
+#means a board that's 25% submerged gets roughly 25% of the drag, while a fully submerged board gets 100%.
 	apply_central_force(drag_force)
-	
+
+##pushes the board horizontally
 func apply_wave_force() -> void:
 
 	var wave_velocity := WaveManager.get_wave_velocity()
@@ -78,7 +81,9 @@ func apply_wave_force() -> void:
 	var relative_velocity := wave_velocity - board_velocity
 
 	var relative_speed := relative_velocity.dot(wave_direction)
-
+#compares waves and board speeds, if waves is faster than the surfboard then the surboard gets pushed more forward
+#else 
+# have negative relative_speed and no push happens
 	if relative_speed <= 0.0:
 		return
 
@@ -95,6 +100,8 @@ func apply_wave_force() -> void:
 	)
 
 	apply_central_force(force)
+	
+##gives you one water height for the board
 func get_average_water_height() -> float:
 
 	var probes := [
@@ -105,14 +112,14 @@ func get_average_water_height() -> float:
 	]
 
 	var total := 0.0
-
+#How high is the mathematical wave at each of these four positions?" via wavemanager
 	for probe in probes:
 		total += WaveManager.get_wave_height(
 			probe.global_position
 		)
 
 	return total / probes.size()
-	
+##The buoyancy/spring system
 func apply_wave_following() -> void:
 
 	var water_height :float = get_average_water_height()
@@ -125,6 +132,8 @@ func apply_wave_following() -> void:
 	)
 
 	apply_central_force(Vector3.UP * force_strength)
+	
+##if submerge push positve direction, else negative no force applied
 func get_submersion_factor() -> float:
 
 	var probes := [
@@ -145,3 +154,58 @@ func get_submersion_factor() -> float:
 			submerged += 1.0
 
 	return submerged / probes.size()
+##tilting
+func apply_wave_rotation() -> void:
+
+	#var water_normal := WaveManager.get_wave_normal(global_position)
+	var water_normal := get_board_water_normal()
+
+	var board_up := global_transform.basis.y
+
+	var rotation_axis := board_up.cross(water_normal)
+	var rotation_error := rotation_axis.length()
+
+	if rotation_error < 0.001:
+		return
+
+	rotation_axis = rotation_axis.normalized()
+
+	var torque := rotation_axis * rotation_error * wave_rotation_strength
+
+	apply_torque(torque)
+
+##four probes to determine the water surface underneath
+func get_board_water_normal() -> Vector3:
+
+	var front_height := WaveManager.get_wave_height(
+		front_probe.global_position
+	)
+
+	var back_height := WaveManager.get_wave_height(
+		back_probe.global_position
+	)
+
+	var left_height := WaveManager.get_wave_height(
+		left_probe.global_position
+	)
+
+	var right_height := WaveManager.get_wave_height(
+		right_probe.global_position
+	)
+
+	var front_pos := front_probe.global_position
+	var back_pos := back_probe.global_position
+	var left_pos := left_probe.global_position
+	var right_pos := right_probe.global_position
+
+	front_pos.y = front_height
+	back_pos.y = back_height
+	left_pos.y = left_height
+	right_pos.y = right_height
+
+	var front_back := back_pos - front_pos
+	var left_right := right_pos - left_pos
+
+	var normal := front_back.cross(left_right)
+
+	return normal.normalized()

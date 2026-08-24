@@ -34,11 +34,8 @@ environment = SubResource("Environment_wb2by")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Player" parent="." unique_id=519681689 node_paths=PackedStringArray("surfboard", "player_anchor") instance=ExtResource("2_8mtfu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.018021822, 1.1528511, 0)
-collision_layer = 2
-surfboard = NodePath("../Surfboard")
-player_anchor = NodePath("../Surfboard/PlayerAnchor")
+[node name="Player" parent="." unique_id=519681689 instance=ExtResource("2_8mtfu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4563222, 1, 0)
 
 [node name="floor" type="CSGBox3D" parent="." unique_id=1456495516]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.23040771, 0)
@@ -51,8 +48,7 @@ visible = false
 
 [node name="Surfboard" parent="." unique_id=499914239 instance=ExtResource("5_t40n3")]
 transform = Transform3D(0.9999619, 0, 0.008726535, 0, 1, 0, -0.008726535, 0, 0.9999619, 0, 0, 0)
-collision_layer = 4
 can_sleep = false
 
 [node name="PlayerAnchor" type="Marker3D" parent="Surfboard" unique_id=231458562]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107669175, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08945596, 0)

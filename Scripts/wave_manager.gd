@@ -36,6 +36,7 @@ func get_wave_height(pos: Vector3) -> float:
 		wave3 * 0.2
 	) * wave_height
 
+##The orientation of the surface. Think "tilting" of the surfboard. The normal is basically a vector perpendicular to the wave surface
 func get_wave_normal(pos: Vector3) -> Vector3:
 
 	var sample_distance := 0.1

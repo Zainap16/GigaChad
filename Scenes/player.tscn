@@ -27,3 +27,7 @@ shape = SubResource("CapsuleShape3D_cvnsp")
 transform = Transform3D(1, 0, 0, 0, 0.992495, 0.12228509, 0, -0.12228509, 0.992495, 0, 1.0942451, 2.1573486)
 
 [node name="visuals" type="Node3D" parent="." unique_id=925085610]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1840650569]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5767487, -0.8710089)
+size = Vector3(0.3, 0.3, 0.3)

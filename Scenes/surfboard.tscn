@@ -32,6 +32,9 @@ debug_color = Color(0.99765736, 0, 0.17119911, 0.41960785)
 [node name="FrontProbe" type="Marker3D" parent="BuoyancyPoints" unique_id=1357264908]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.3)
 
+[node name="CSGBox3D" type="CSGBox3D" parent="BuoyancyPoints/FrontProbe" unique_id=1013056462]
+size = Vector3(0.3, 0.3, 0.3)
+
 [node name="BackProbe" type="Marker3D" parent="BuoyancyPoints" unique_id=1918912526]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.3)
 
