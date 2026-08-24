@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cal8rp5nuh81n" path="res://Assets/GreyboxTextures/greybox_dark_grid.png" id="2_wb2by"]
 [ext_resource type="PackedScene" uid="uid://dktx27v5b6ck6" path="res://Scenes/sea_scene.tscn" id="3_wb2by"]
 [ext_resource type="PackedScene" uid="uid://duamnfufibm1s" path="res://Scenes/surfboard.tscn" id="5_t40n3"]
+[ext_resource type="PackedScene" uid="uid://b01e8sf5nddih" path="res://Scenes/ramp.tscn" id="6_udhrh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bkcmx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -65,6 +66,7 @@ size = Vector3(32.929443, 0.5391846, 26.682617)
 [node name="Surfboard" parent="." unique_id=499914239 node_paths=PackedStringArray("player") instance=ExtResource("5_t40n3")]
 transform = Transform3D(0.9999619, 0, 0.008726535, 0, 1, 0, -0.008726535, 0, 0.9999619, 0, 0, 0)
 collision_layer = 4
+collision_mask = 17
 can_sleep = false
 player = NodePath("../Player")
 steering_torque = 2.0
@@ -72,3 +74,6 @@ brake_force = 20.0
 
 [node name="PlayerAnchor" type="Marker3D" parent="Surfboard" unique_id=231458562]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+
+[node name="Ramp" parent="." unique_id=62801989 instance=ExtResource("6_udhrh")]
+transform = Transform3D(1, 0, 0, 0, 0.9611462, -0.27604, 0, 0.27604, 0.9611462, 0, 0.69997644, -6.528872)

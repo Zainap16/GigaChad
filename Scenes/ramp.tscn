@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://b01e8sf5nddih"]
+
+[ext_resource type="Script" uid="uid://bacqdhup486bv" path="res://Scripts/ramp.gd" id="1_tkx18"]
+[ext_resource type="Texture2D" uid="uid://cal8rp5nuh81n" path="res://Assets/GreyboxTextures/greybox_dark_grid.png" id="1_uuaxm"]
+[ext_resource type="Texture2D" uid="uid://b8ijb10qqb37k" path="res://Assets/GreyboxTextures/greybox_grey_grid.png" id="2_tkx18"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bgx8x"]
+albedo_texture = ExtResource("1_uuaxm")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ejdup"]
+size = Vector3(2, 0.1, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ded2n"]
+albedo_texture = ExtResource("2_tkx18")
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f6jyy"]
+size = Vector3(2, 0.1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uuaxm"]
+size = Vector3(2.6582031, 0.55371094, 0.8720703)
+
+[node name="Ramp" type="StaticBody3D" unique_id=62801989]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("1_tkx18")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=273144408]
+material_override = SubResource("StandardMaterial3D_bgx8x")
+mesh = SubResource("BoxMesh_ejdup")
+surface_material_override/0 = SubResource("StandardMaterial3D_ded2n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=829851298]
+shape = SubResource("BoxShape3D_f6jyy")
+
+[node name="RampTrigger" type="Area3D" parent="." unique_id=495118898]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RampTrigger" unique_id=266259984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.8005981)
+shape = SubResource("BoxShape3D_uuaxm")
+
+[connection signal="body_entered" from="RampTrigger" to="." method="_on_ramp_trigger_body_entered"]
+[connection signal="body_exited" from="RampTrigger" to="." method="_on_ramp_trigger_body_exited"]

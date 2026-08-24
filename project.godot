@@ -48,6 +48,7 @@ right={
 3d_physics/layer_2="player"
 3d_physics/layer_3="surfboard"
 3d_physics/layer_4="sharks"
+3d_physics/layer_5="ramps"
 
 [physics]
 
