@@ -20,7 +20,10 @@ extends RigidBody3D
 @onready var left_probe: Marker3D = $BuoyancyPoints/LeftProbe
 @onready var right_probe: Marker3D = $BuoyancyPoints/RightProbe
 
-
+@export_category("Player")
+@export var player:CharacterBody3D
+@export var player_weight: float  = 3.0
+@export var weight_shift_strength := 1.0
 
 func _physics_process(_delta: float) -> void:
 
@@ -34,6 +37,7 @@ func _physics_process(_delta: float) -> void:
 	apply_wave_rotation()
 	apply_water_drag()
 	apply_wave_force()
+	apply_player_weight_shift()
 	#print(
 		#"Y: ", global_position.y,
 		#" | Vel: ", linear_velocity.y,
@@ -209,3 +213,19 @@ func get_board_water_normal() -> Vector3:
 	var normal := front_back.cross(left_right)
 
 	return normal.normalized()
+
+##Have player weight impact the surboard
+func apply_player_weight_shift() -> void:
+
+	var relative_position := (
+		player.global_position - global_position
+	)
+
+	var weight_force := Vector3.DOWN * player_weight
+
+	var torque := (
+		relative_position.cross(weight_force)
+		* weight_shift_strength
+	)
+
+	apply_torque(torque)

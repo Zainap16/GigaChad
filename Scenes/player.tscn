@@ -13,6 +13,7 @@ uv1_triplanar = true
 
 [node name="Player" type="CharacterBody3D" unique_id=519681689]
 script = ExtResource("1_v0iea")
+can_move = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1525651347]
 mesh = SubResource("CapsuleMesh_v0iea")
@@ -31,3 +32,7 @@ transform = Transform3D(1, 0, 0, 0, 0.992495, 0.12228509, 0, -0.12228509, 0.9924
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1840650569]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5767487, -0.8710089)
 size = Vector3(0.3, 0.3, 0.3)
+
+[node name="PlayerFeet" type="Marker3D" parent="." unique_id=1111151527]
+editor_description = "Player's feet"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.002948, 0)

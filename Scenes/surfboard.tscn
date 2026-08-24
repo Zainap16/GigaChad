@@ -9,10 +9,10 @@ uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_n7llf"]
 material = SubResource("StandardMaterial3D_wr883")
-size = Vector3(0.7, 0.15, 3)
+size = Vector3(1.5, 0.3, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yj6fq"]
-size = Vector3(0.7, 0.15, 3)
+size = Vector3(1.5, 0.3, 4)
 
 [node name="Surfboard" type="RigidBody3D" unique_id=499914239]
 mass = 0.5
@@ -30,16 +30,13 @@ debug_color = Color(0.99765736, 0, 0.17119911, 0.41960785)
 [node name="BuoyancyPoints" type="Node3D" parent="." unique_id=1366239755]
 
 [node name="FrontProbe" type="Marker3D" parent="BuoyancyPoints" unique_id=1357264908]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.3)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="BuoyancyPoints/FrontProbe" unique_id=1013056462]
-size = Vector3(0.3, 0.3, 0.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.7323159)
 
 [node name="BackProbe" type="Marker3D" parent="BuoyancyPoints" unique_id=1918912526]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.65873)
 
 [node name="LeftProbe" type="Marker3D" parent="BuoyancyPoints" unique_id=1898291557]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5483515, 0, 0)
 
 [node name="RightProbe" type="Marker3D" parent="BuoyancyPoints" unique_id=157626973]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48396426, 0, 0)

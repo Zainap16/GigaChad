@@ -6,14 +6,23 @@ extends CharacterBody3D
 @export var sens_vertical :float = 0.2
 @onready var visuals: Node3D = $visuals
 
+@onready var player_feet: Marker3D = $PlayerFeet
 
 @export var surfboard: RigidBody3D
 @export var player_anchor: Marker3D
 var is_on_surfboard:= false
 
-var can_move := false
+@export var can_move := false
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+
+
+@export_category("Limitations")
+@export var surf_forward_limit := 1.5
+@export var surf_backward_limit := 1.5
+@export var surf_side_limit := 0.7
+@export var surf_move_speed := 2.0
+
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -33,37 +42,20 @@ func _input(event):
 #		visuals.rotate_y(deg_to_rad(event.relative.x * sens_horizontal))
 
 		
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 
 	if is_on_surfboard:
-
 		var board_velocity := get_board_velocity_at_player()
-
 		var player_velocity := Vector3.ZERO
 
 		if can_move:
-			var input_dir := Input.get_vector(
-				"left",
-				"right",
-				"forward",
-				"backward"
-			)
-
-			var direction := (
-				transform.basis *
-				Vector3(input_dir.x, 0, input_dir.y)
-			).normalized()
-
-			if direction:
-				player_velocity.x = direction.x * SPEED
-				player_velocity.z = direction.z * SPEED
-
+			player_velocity = get_surf_velocity()
 		velocity = board_velocity + player_velocity
 
 		move_and_slide()
-
+		limit_player_position()
 		return
-	# normal movement when not surfing...
+
 ##How fast is the board moving underneath me
 func get_board_velocity_at_player() -> Vector3:
 
@@ -79,8 +71,70 @@ func get_board_velocity_at_player() -> Vector3:
 		surfboard.linear_velocity
 		+ rotational_velocity
 	)
+
+##Move surfboard
+func surf_move(delta: float) -> void:
+
+	var surf_input := get_surf_input()
+	var board_forward := -surfboard.global_transform.basis.z
+	var board_right := surfboard.global_transform.basis.x
+
+	var movement := (
+		board_right * surf_input.x
+		+ board_forward * surf_input.y
+	)
+
+	# Move player relative to board
+	global_position += movement * SPEED * delta
+##Surf Velocity
+func get_surf_velocity() -> Vector3:
+
+	var surf_input := get_surf_input()
+
+	var board_forward := -surfboard.global_transform.basis.z
+	var board_right := surfboard.global_transform.basis.x
+
+	var movement := (
+		board_right * surf_input.x
+		+ board_forward * surf_input.y
+	)
+
+	return movement * surf_move_speed
+
+##Get player Input to move on surfboard.
+func get_surf_input() -> Vector2:
+
+	return Input.get_vector(
+		"left",
+		"right",
+		"backward",
+		"forward"
+	)
+##Snap player to surfboard
 func mount_surfboard() -> void:
 
 	is_on_surfboard = true
 
-	global_transform = player_anchor.global_transform
+	var feet_offset := global_position - player_feet.global_position
+
+	global_position = player_anchor.global_position + feet_offset
+
+##Limit player movement on surfboard
+func limit_player_position() -> void:
+#I think this gets the board's area
+	var local_position := surfboard.to_local(global_position)
+
+#here's where the area retriction occurs
+	local_position.z = clamp(
+		local_position.z,
+		-surf_forward_limit,
+		surf_backward_limit
+	)
+
+	local_position.x = clamp(
+		local_position.x,
+		-surf_side_limit,
+		surf_side_limit
+	)
+
+	global_position = surfboard.to_global(local_position)

@@ -35,10 +35,24 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="Player" parent="." unique_id=519681689 node_paths=PackedStringArray("surfboard", "player_anchor") instance=ExtResource("2_8mtfu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.018021822, 1.1528511, 0)
+editor_description = "For limitations use less than halfway points:
+x - 1.5m
+y - 0.3m
+z - 4.0m
+
+Then for limitation do:
+surf_forward_limit := 1.7
+surf_backward_limit := 1.7
+var surf_side_limit := 0.55
+
+Essentially a safety margin."
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.018021822, 1.1528511, 4.2459974)
 collision_layer = 2
 surfboard = NodePath("../Surfboard")
 player_anchor = NodePath("../Surfboard/PlayerAnchor")
+surf_forward_limit = 1.7
+surf_backward_limit = 1.7
+surf_side_limit = 0.55
 
 [node name="floor" type="CSGBox3D" parent="." unique_id=1456495516]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.23040771, 0)
@@ -47,12 +61,12 @@ material_override = SubResource("StandardMaterial3D_syfkn")
 size = Vector3(32.929443, 0.5391846, 26.682617)
 
 [node name="SeaScene" parent="." unique_id=387515874 instance=ExtResource("3_wb2by")]
-visible = false
 
-[node name="Surfboard" parent="." unique_id=499914239 instance=ExtResource("5_t40n3")]
+[node name="Surfboard" parent="." unique_id=499914239 node_paths=PackedStringArray("player") instance=ExtResource("5_t40n3")]
 transform = Transform3D(0.9999619, 0, 0.008726535, 0, 1, 0, -0.008726535, 0, 0.9999619, 0, 0, 0)
 collision_layer = 4
 can_sleep = false
+player = NodePath("../Player")
 
 [node name="PlayerAnchor" type="Marker3D" parent="Surfboard" unique_id=231458562]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107669175, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
