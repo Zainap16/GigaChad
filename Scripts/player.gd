@@ -23,6 +23,8 @@ const JUMP_VELOCITY = 4.5
 @export var surf_side_limit := 0.7
 @export var surf_move_speed := 2.0
 
+@export_category("Speed")
+@export var max_speed := 15.0
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -54,7 +56,9 @@ func _physics_process(_delta: float) -> void:
 
 		move_and_slide()
 		limit_player_position()
+		#update_camera_direction()
 		return
+	
 
 ##How fast is the board moving underneath me
 func get_board_velocity_at_player() -> Vector3:
@@ -138,3 +142,15 @@ func limit_player_position() -> void:
 	)
 
 	global_position = surfboard.to_global(local_position)
+
+
+func update_camera_direction() -> void:
+
+	var board_basis := surfboard.global_transform.basis
+
+	var board_yaw := atan2(
+		-board_basis.z.x,
+		-board_basis.z.z
+	)
+
+	camera_mount.global_rotation.y = board_yaw

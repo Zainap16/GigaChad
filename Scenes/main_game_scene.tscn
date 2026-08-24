@@ -67,6 +67,8 @@ transform = Transform3D(0.9999619, 0, 0.008726535, 0, 1, 0, -0.008726535, 0, 0.9
 collision_layer = 4
 can_sleep = false
 player = NodePath("../Player")
+steering_torque = 2.0
+brake_force = 20.0
 
 [node name="PlayerAnchor" type="Marker3D" parent="Surfboard" unique_id=231458562]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)

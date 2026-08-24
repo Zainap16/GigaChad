@@ -25,6 +25,14 @@ extends RigidBody3D
 @export var player_weight: float  = 3.0
 @export var weight_shift_strength := 1.0
 
+@export_category("Steering")
+@export var steering_torque := 10.0
+@export var acceleration_force := 25.0
+@export var brake_force := 40.0
+
+
+@export_category("Speed")
+@export var max_speed := 15.0
 func _physics_process(_delta: float) -> void:
 
 
@@ -38,6 +46,9 @@ func _physics_process(_delta: float) -> void:
 	apply_water_drag()
 	apply_wave_force()
 	apply_player_weight_shift()
+	apply_player_acceleration()
+	apply_player_steering()
+	limit_speed()
 	#print(
 		#"Y: ", global_position.y,
 		#" | Vel: ", linear_velocity.y,
@@ -229,3 +240,76 @@ func apply_player_weight_shift() -> void:
 	)
 
 	apply_torque(torque)
+
+##Steering function A/D
+func apply_player_steering() -> void:
+
+	if not player.can_move:
+		return
+
+	var input := Input.get_axis("right", "left")
+
+	if input == 0.0:
+		return
+
+	var up := global_transform.basis.y
+
+	apply_torque(
+		up * input * steering_torque
+	)
+
+##Moves surfboard and breaking
+func apply_player_acceleration() -> void:
+
+	if not player.can_move:
+		return
+	var input := Input.get_axis("backward", "forward")
+
+	var forward := -global_transform.basis.z
+
+	if input > 0.0:
+		# W - accelerate
+		apply_central_force(
+			forward * input * acceleration_force
+		)
+
+	elif input < 0.0:
+		# S - brake
+		var forward_speed := linear_velocity.dot(forward)
+
+		if forward_speed > 0.0:
+			apply_central_force(
+				-forward * brake_force
+			)
+			
+#accelerate backwards
+	#var input := Input.get_axis("backward", "forward")
+#
+	#if input == 0.0:
+		#return
+#
+	#var forward := -global_transform.basis.z
+#
+	#apply_central_force(
+		#forward * input * acceleration_force
+	#)
+
+
+
+func limit_speed() -> void:
+
+	var horizontal_velocity := Vector3(
+		linear_velocity.x,
+		0.0,
+		linear_velocity.z
+	)
+
+	var speed := horizontal_velocity.length()
+
+	if speed <= max_speed:
+		return
+
+	horizontal_velocity = horizontal_velocity.normalized() * max_speed
+
+	linear_velocity.x = horizontal_velocity.x
+	linear_velocity.z = horizontal_velocity.z

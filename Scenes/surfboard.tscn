@@ -32,6 +32,10 @@ debug_color = Color(0.99765736, 0, 0.17119911, 0.41960785)
 [node name="FrontProbe" type="Marker3D" parent="BuoyancyPoints" unique_id=1357264908]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.7323159)
 
+[node name="CSGBox3D" type="CSGBox3D" parent="BuoyancyPoints/FrontProbe" unique_id=325506988]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30710924, 0)
+size = Vector3(0.3, 0.3, 0.3)
+
 [node name="BackProbe" type="Marker3D" parent="BuoyancyPoints" unique_id=1918912526]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.65873)
 
@@ -40,3 +44,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5483515, 0, 0)
 
 [node name="RightProbe" type="Marker3D" parent="BuoyancyPoints" unique_id=157626973]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48396426, 0, 0)
+
+[node name="CameraAnchor" type="Marker3D" parent="." unique_id=2086132272]
+transform = Transform3D(1, 0, 0, 0, 0.99991864, 0.01275801, 0, -0.01275801, 0.99991864, 0, 3.1111975, -4.298542)
