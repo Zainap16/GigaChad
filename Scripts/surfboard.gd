@@ -22,7 +22,7 @@ extends RigidBody3D
 @onready var right_probe: Marker3D = $BuoyancyPoints/RightProbe
 
 @export_category("Player")
-@export var player:CharacterBody3D
+@export var player:Node3D
 @export var player_weight: float  = 3.0
 @export var weight_shift_strength := 1.0
 
