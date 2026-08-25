@@ -64,16 +64,24 @@ size = Vector3(32.929443, 0.5391846, 26.682617)
 [node name="SeaScene" parent="." unique_id=387515874 instance=ExtResource("3_wb2by")]
 
 [node name="Surfboard" parent="." unique_id=499914239 node_paths=PackedStringArray("player") instance=ExtResource("5_t40n3")]
-transform = Transform3D(0.9999619, 0, 0.008726535, 0, 1, 0, -0.008726535, 0, 0.9999619, 0, 0, 0)
+transform = Transform3D(0.9999619, 0, 0.008726535, 0, 1, 0, -0.008726535, 0, 0.9999619, 0, 0, 11.931072)
 collision_layer = 4
 collision_mask = 17
 can_sleep = false
+water_drag = 1.0
 player = NodePath("../Player")
 steering_torque = 2.0
 brake_force = 20.0
+sinking_torque = 7.0
 
 [node name="PlayerAnchor" type="Marker3D" parent="Surfboard" unique_id=231458562]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 
 [node name="Ramp" parent="." unique_id=62801989 instance=ExtResource("6_udhrh")]
 transform = Transform3D(1, 0, 0, 0, 0.9611462, -0.27604, 0, 0.27604, 0.9611462, 0, 0.69997644, -6.528872)
+
+[node name="RestartTimer" type="Timer" parent="." unique_id=344444854]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="RestartTimer" to="." method="_on_restart_timer_timeout"]

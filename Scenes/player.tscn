@@ -11,7 +11,7 @@ uv1_triplanar = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvnsp"]
 
-[node name="Player" type="CharacterBody3D" unique_id=519681689]
+[node name="Player" type="CharacterBody3D" unique_id=519681689 groups=["player"]]
 script = ExtResource("1_v0iea")
 can_move = true
 

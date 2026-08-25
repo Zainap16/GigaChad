@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://c731ttn352yod"]
+
+[ext_resource type="Script" uid="uid://c30aohjnpur7i" path="res://Scripts/shark.gd" id="1_87kak"]
+[ext_resource type="Texture2D" uid="uid://c3tjc3ib2n8vo" path="res://Assets/GreyboxTextures/greybox_red_grid.png" id="2_cb72u"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6rxyh"]
+size = Vector3(0.8, 0.5, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wyy8k"]
+albedo_texture = ExtResource("2_cb72u")
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m247r"]
+size = Vector3(0.8, 0.5, 3)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_87kak"]
+radius = 4.0
+
+[node name="Shark" type="CharacterBody3D" unique_id=918205962]
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("1_87kak")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=504518211]
+mesh = SubResource("BoxMesh_6rxyh")
+surface_material_override/0 = SubResource("StandardMaterial3D_wyy8k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=787633421]
+shape = SubResource("BoxShape3D_m247r")
+
+[node name="DetectionArea" type="Area3D" parent="." unique_id=1887423104]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=1545587970]
+shape = SubResource("SphereShape3D_87kak")
+debug_color = Color(0.98369867, 0, 0.354958, 0.41960785)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=333787546]
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

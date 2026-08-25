@@ -26,6 +26,12 @@ const JUMP_VELOCITY = 4.5
 @export_category("Speed")
 @export var max_speed := 15.0
 
+
+@export_category("Shark Escape")
+@export var escape_time := 4.0
+
+var escape_timer := 0.0
+var escaping_shark := false
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	mount_surfboard()
@@ -44,7 +50,7 @@ func _input(event):
 #		visuals.rotate_y(deg_to_rad(event.relative.x * sens_horizontal))
 
 		
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 
 	if is_on_surfboard:
 		var board_velocity := get_board_velocity_at_player()
@@ -56,6 +62,7 @@ func _physics_process(_delta: float) -> void:
 
 		move_and_slide()
 		limit_player_position()
+		#update_shark_escape(delta)
 		#update_camera_direction()
 		return
 	
@@ -143,7 +150,30 @@ func limit_player_position() -> void:
 
 	global_position = surfboard.to_global(local_position)
 
+func update_shark_escape(delta: float) -> void:
 
+	if not escaping_shark:
+		return
+
+	var input := Input.get_axis("backward", "forward")
+
+	# Player is accelerating forward
+	if input > 0.0:
+		escape_timer += delta
+	else:
+		escape_timer = 0.0
+
+	if escape_timer >= escape_time:
+		escape_shark()
+		
+func escape_shark() -> void:
+
+	print("ESCAPED SHARK!")
+
+	escape_timer = 0.0
+	escaping_shark = false
+
+	# Tell shark to despawn
 func update_camera_direction() -> void:
 
 	var board_basis := surfboard.global_transform.basis

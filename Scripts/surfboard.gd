@@ -3,16 +3,17 @@ extends RigidBody3D
 @export_category("Buoyancy")
 ##apply an upward force --> simulate "floating"
 @export var buoyancy_strength := 25.0
-##resistance the water applies to the surf board. So the faster you are the moer resistance is applied
+##resistance the water applies to the surf board. So the faster you are the more resistance is applied
 @export var water_drag := 2.0
 @export_category("Wave Following")
-
 @export var wave_follow_strength := 5.0
 @export var wave_follow_damping := 1.5
+
 @export_category("Wave Movement")
 ##moves the surboard forward. Bascially.
 @export var wave_push := 8.0
 @export var wave_rotation_strength := 20.0
+##Resistance applied.
 @export var wave_rotation_damping := 5.0
 
 @onready var front_probe: Marker3D = $BuoyancyPoints/FrontProbe
@@ -26,16 +27,30 @@ extends RigidBody3D
 @export var weight_shift_strength := 1.0
 
 @export_category("Steering")
+##Rotational Speed A/D
 @export var steering_torque := 10.0
+##Force applied when pushing forward
 @export var acceleration_force := 25.0
+##break force/No reverse
 @export var brake_force := 40.0
 
 
 @export_category("Speed")
 @export var max_speed := 15.0
+
+@export_category("Sinking")
+@export var sinking_force := 20.0
+@export var sinking_torque := 5.0
+@export var sink_depth := 5.0
+var is_sinking := false
+
+@onready var restart_timer: Timer = $"../RestartTimer"
+
 func _physics_process(_delta: float) -> void:
 
-
+	if is_sinking:
+		apply_sinking()
+		return
 	apply_buoyancy(front_probe)
 	apply_buoyancy(back_probe)
 	apply_buoyancy(left_probe)
@@ -294,6 +309,37 @@ func apply_player_acceleration() -> void:
 		#forward * input * acceleration_force
 	#)
 
+func apply_sinking() -> void:
+
+	apply_central_force(
+		Vector3.DOWN * sinking_force
+	)
+
+	apply_torque(
+		global_transform.basis.x * sinking_torque
+	)
+
+	var water_height := WaveManager.get_wave_height(global_position)
+
+	if global_position.y < water_height - sink_depth:
+		finish_sinking()
+
+func finish_sinking() -> void:
+
+	print("PLAYER LOST")
+
+	set_physics_process(false)
+	
+	restart_timer.start()
+
+func start_sinking() -> void:
+
+	if is_sinking:
+		return
+
+	is_sinking = true
+
+	print("SURFBOARD IS SINKING")
 
 
 func limit_speed() -> void:

@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 WaveManager="*uid://npthfedof88m"
 
+[global_group]
+
+player=""
+
 [input]
 
 forward={
