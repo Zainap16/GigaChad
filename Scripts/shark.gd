@@ -1,5 +1,8 @@
 extends CharacterBody3D
 
+
+@onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
+
 @export_category("Movement")
 @export var chase_speed := 7.0
 @export var acceleration := 5.0
@@ -17,7 +20,10 @@ var shark:CharacterBody3D
 
 @export_category("SharkAttack")
 @export var bite_cooldown := 1.0
+##Shark won't immediately attack bur rather, wait x amount of seconds then attacl
+@export var start_cooldown := 5.0
 var can_bite := true
+@export var bite_counter : int = 0
 
 enum SharkState {
 	CHASING,
@@ -33,6 +39,7 @@ func _ready() -> void:
 		player = players[0]
 	else:
 		push_warning("Player not foundd")
+	start_bite_cooldown()
 		
 
 
@@ -54,22 +61,20 @@ func bite_player() -> void:
 		return
 
 	can_bite = false
-	state = SharkState.ATTACKING
-
-	print("CHOMP!")
 
 	attack_player()
 
 	await get_tree().create_timer(bite_cooldown).timeout
 
 	can_bite = true
-func attack_player():
-	if state == SharkState.ATTACKING:
-		return
-
-	state = SharkState.ATTACKING
-
-	print("SHARK BITES PLAYER!")
+	
+func attack_player() -> void:
+	bite_counter += 1
+	print("SHARK BITES PLAYER!" )
+	if bite_counter >= 2:
+		print("Game Over")
+	print("Bite counter: ", bite_counter )
+	
 
 func chase_player(delta: float) -> void:
 
@@ -121,11 +126,17 @@ func update_escape_timer(delta: float) -> void:
 func escape_shark():
 	queue_free()
 
+func start_bite_cooldown() -> void:
+
+	await get_tree().create_timer(start_cooldown).timeout
+
+	can_bite = true
+
+	print("SHARK CAN BITE!")
 
 func _on_detection_area_body_entered(body: Node3D) -> void:
-	
 	if body.name == "Surfboard":
 		bite_player()
 		
 #		might add a timer and then show game over screen
-		print("You Lose")
+		#print("You Lose")

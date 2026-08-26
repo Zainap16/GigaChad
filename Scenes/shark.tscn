@@ -17,6 +17,7 @@ size = Vector3(0.8, 0.5, 3)
 radius = 4.0
 
 [node name="Shark" type="CharacterBody3D" unique_id=918205962 groups=["sharks"]]
+editor_description = "Because shark randomly spawns let there be a cooldown before they can actually bite player"
 collision_layer = 8
 collision_mask = 17
 script = ExtResource("1_87kak")

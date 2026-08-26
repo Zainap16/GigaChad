@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://c1w4ykytpmimd"]
+
+[ext_resource type="Script" uid="uid://bq85tw5qf6usw" path="res://Scripts/level_one.gd" id="1_sojq8"]
+[ext_resource type="PackedScene" uid="uid://c731ttn352yod" path="res://Scenes/shark.tscn" id="2_hi7j2"]
+
+[node name="LevelOne" type="Node3D" unique_id=1677408728]
+script = ExtResource("1_sojq8")
+shark_scene = ExtResource("2_hi7j2")
+
+[node name="SharkSpawner" type="Node3D" parent="." unique_id=1806518480]
+
+[node name="SpawnPoint1" type="Marker3D" parent="SharkSpawner" unique_id=227419701 groups=["shark_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.984703, 0, 0)
+
+[node name="SpawnPoint2" type="Marker3D" parent="SharkSpawner" unique_id=216920152 groups=["shark_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.726866, 0, 0)
+
+[node name="SpawnPoint3" type="Marker3D" parent="SharkSpawner" unique_id=534723129 groups=["shark_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.726866, 0, 12.106876)

@@ -27,9 +27,16 @@ var target_lean := Vector3.ZERO
 
 @export_category("Shark Escape")
 @export var escape_time := 4.0
-
 var escape_timer := 0.0
 var escaping_shark := false
+
+@export_category("Balance")
+@export var max_balance_tilt := 25.0
+@export var balance_sensitivity := 1.0
+
+
+##Think of balance as: 0 = perfectly balanced 10 = slightly unstable 20 = very unstable 25+ = falling
+var balance := 0.0
 
 ##makes camera move slowly the lower the number is
 @export var rotation_smoothing := 5.0
@@ -68,49 +75,37 @@ func _process(delta: float) -> void:
 		return
 
 	if can_move:
-		update_lean(delta)
-	#update_camera(delta)
-	#update_shark_escape(delta)
+		update_balance_lean(delta)
 
 
 ## --------------------------------
 ## SURFING LEAN
 ## --------------------------------
 
-func update_lean(delta: float) -> void:
+func update_balance_lean(delta: float) -> void:
 
-	var input := get_surf_input()
+	var board_up := surfboard.global_transform.basis.y
 
-	# Forward / backward lean
-	if input.y > 0.0:
-		target_lean.x = deg_to_rad(-max_forward_lean)
+	var balance_x := board_up.z
+	var balance_z := -board_up.x
 
-	elif input.y < 0.0:
-		target_lean.x = deg_to_rad(max_backward_lean)
-
-	else:
-		target_lean.x = 0.0
-
-
-	# Left / right lean
-	target_lean.z = deg_to_rad(
-		-input.x * max_side_lean
+	var correction := Vector3(
+		balance_x,
+		0.0,
+		balance_z
 	)
 
-
-	# Smoothly move toward the target lean
-	visuals.rotation.x = lerp_angle(
+	visuals.rotation.x = lerp(
 		visuals.rotation.x,
-		target_lean.x,
-		lean_speed * delta
+		correction.x,
+		5.0 * delta
 	)
 
-	visuals.rotation.z = lerp_angle(
+	visuals.rotation.z = lerp(
 		visuals.rotation.z,
-		target_lean.z,
-		lean_speed * delta
+		correction.z,
+		5.0 * delta
 	)
-
 
 ## --------------------------------
 ## INPUT
@@ -187,25 +182,6 @@ func escape_shark() -> void:
 	escape_timer = 0.0
 	escaping_shark = false
 	
-	
-
-	# Tell shark to despawn
-
-
-func update_camera(delta: float) -> void:
-
-	var target_rotation := Vector3(
-		0.0,
-		rotation.y,
-		0.0
-	)
-
-	camera_mount.rotation.y = lerp_angle(
-		camera_mount.rotation.y,
-		target_rotation.y,
-		rotation_smoothing * delta
-	)
-
 	#var target_rotation := Vector3(
 		#surfboard.global_rotation.x,
 		#surfboard.global_rotation.y,

@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://duamnfufibm1s" path="res://Scenes/surfboard.tscn" id="5_t40n3"]
 [ext_resource type="PackedScene" uid="uid://b01e8sf5nddih" path="res://Scenes/ramp.tscn" id="6_udhrh"]
 [ext_resource type="PackedScene" uid="uid://kxchasrxe3gd" path="res://Scenes/camera_rig.tscn" id="7_hkk18"]
+[ext_resource type="PackedScene" uid="uid://doveaptetws4q" path="res://Scenes/shark_spawn_point_activation.tscn" id="7_t25fw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bkcmx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -64,15 +65,6 @@ one_shot = true
 
 [node name="CameraRig" parent="." unique_id=132255753 instance=ExtResource("7_hkk18")]
 
-[node name="SharkSpawner" type="Node3D" parent="." unique_id=1667138038]
-
-[node name="SpawnPoint1" type="Marker3D" parent="SharkSpawner" unique_id=1454755050 groups=["shark_spawn"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.984703, 0, 0)
-
-[node name="SpawnPoint2" type="Marker3D" parent="SharkSpawner" unique_id=983230617 groups=["shark_spawn"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.726866, 0, 0)
-
-[node name="SpawnPoint3" type="Marker3D" parent="SharkSpawner" unique_id=2062049373 groups=["shark_spawn"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.726866, 0, 12.106876)
+[node name="SharkSpawnArea" parent="." unique_id=1203851588 instance=ExtResource("7_t25fw")]
 
 [connection signal="timeout" from="RestartTimer" to="." method="_on_restart_timer_timeout"]

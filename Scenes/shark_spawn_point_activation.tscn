@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://doveaptetws4q"]
+
+[ext_resource type="Script" uid="uid://bcbxl2duysnnp" path="res://Scripts/shark_spawn_point_activation.gd" id="1_e1h0j"]
+[ext_resource type="PackedScene" uid="uid://c731ttn352yod" path="res://Scenes/shark.tscn" id="2_b3ya8"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sa7qu"]
+radius = 1.5235995
+
+[node name="SharkSpawnArea" type="Area3D" unique_id=1203851588]
+collision_layer = 32
+collision_mask = 6
+script = ExtResource("1_e1h0j")
+shark_scene = ExtResource("2_b3ya8")
+
+[node name="Marker3D" type="Marker3D" parent="." unique_id=836165754]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=210470268]
+shape = SubResource("SphereShape3D_sa7qu")
+debug_color = Color(0.9821724, 0, 0.36873826, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
