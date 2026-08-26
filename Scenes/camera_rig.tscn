@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://kxchasrxe3gd"]
+
+[ext_resource type="Script" uid="uid://csh78jj45cqxq" path="res://Scripts/camera_rig.gd" id="1_p8alh"]
+
+[node name="CameraRig" type="Node3D" unique_id=132255753]
+script = ExtResource("1_p8alh")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1979793707]
+transform = Transform3D(1, 0, 0, 0, 0.9049088, 0.4256056, 0, -0.4256056, 0.9049088, 0, 1.4644184, 6.359496)
+current = true

@@ -22,6 +22,8 @@ WaveManager="*uid://npthfedof88m"
 [global_group]
 
 player=""
+sharks=""
+shark_spawn=""
 
 [input]
 

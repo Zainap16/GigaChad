@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://cal8rp5nuh81n" path="res://Assets/GreyboxTextures/greybox_dark_grid.png" id="2_wb2by"]
 [ext_resource type="PackedScene" uid="uid://dktx27v5b6ck6" path="res://Scenes/sea_scene.tscn" id="3_wb2by"]
 [ext_resource type="PackedScene" uid="uid://duamnfufibm1s" path="res://Scenes/surfboard.tscn" id="5_t40n3"]
-[ext_resource type="PackedScene" uid="uid://c731ttn352yod" path="res://Scenes/shark.tscn" id="6_hkk18"]
 [ext_resource type="PackedScene" uid="uid://b01e8sf5nddih" path="res://Scenes/ramp.tscn" id="6_udhrh"]
+[ext_resource type="PackedScene" uid="uid://kxchasrxe3gd" path="res://Scenes/camera_rig.tscn" id="7_hkk18"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bkcmx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -48,15 +48,12 @@ collision_layer = 4
 collision_mask = 17
 can_sleep = false
 water_drag = 1.0
-steering_torque = 2.0
+steering_torque = 3.0
 brake_force = 20.0
 sinking_torque = 7.0
 
 [node name="PlayerAnchor" type="Marker3D" parent="Surfboard" unique_id=231458562]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=706846269]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8118653, 15.727629)
 
 [node name="Ramp" parent="." unique_id=62801989 instance=ExtResource("6_udhrh")]
 transform = Transform3D(1, 0, 0, 0, 0.9611462, -0.27604, 0, 0.27604, 0.9611462, 0, 0.69997644, -6.528872)
@@ -65,6 +62,17 @@ transform = Transform3D(1, 0, 0, 0, 0.9611462, -0.27604, 0, 0.27604, 0.9611462, 
 wait_time = 2.0
 one_shot = true
 
-[node name="Shark" parent="." unique_id=918205962 instance=ExtResource("6_hkk18")]
+[node name="CameraRig" parent="." unique_id=132255753 instance=ExtResource("7_hkk18")]
+
+[node name="SharkSpawner" type="Node3D" parent="." unique_id=1667138038]
+
+[node name="SpawnPoint1" type="Marker3D" parent="SharkSpawner" unique_id=1454755050 groups=["shark_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.984703, 0, 0)
+
+[node name="SpawnPoint2" type="Marker3D" parent="SharkSpawner" unique_id=983230617 groups=["shark_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.726866, 0, 0)
+
+[node name="SpawnPoint3" type="Marker3D" parent="SharkSpawner" unique_id=2062049373 groups=["shark_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.726866, 0, 12.106876)
 
 [connection signal="timeout" from="RestartTimer" to="." method="_on_restart_timer_timeout"]

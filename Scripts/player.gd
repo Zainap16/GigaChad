@@ -70,7 +70,7 @@ func _process(delta: float) -> void:
 	if can_move:
 		update_lean(delta)
 	#update_camera(delta)
-	update_shark_escape(delta)
+	#update_shark_escape(delta)
 
 
 ## --------------------------------
@@ -186,6 +186,8 @@ func escape_shark() -> void:
 
 	escape_timer = 0.0
 	escaping_shark = false
+	
+	
 
 	# Tell shark to despawn
 
