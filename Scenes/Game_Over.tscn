@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://bocncjgafuw2e"]
+
+[ext_resource type="FontFile" uid="uid://c8be7jt47ep10" path="res://Assets/Temp_Assets/BLUE OCEAN.ttf" id="1_0ghu6"]
+[ext_resource type="Script" uid="uid://ijr61jsityum" path="res://Scripts/game_over.gd" id="1_5ruhh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ruhh"]
+bg_color = Color(0.3863206, 0.836556, 0.8239749, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(1, 1, 1, 1)
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5wgwi"]
+bg_color = Color(0.22469217, 0.79320955, 0.32737476, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yh1op"]
+bg_color = Color(0.87058824, 0.81960785, 0.64705884, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5gs3q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_26uup"]
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n1nf7"]
+bg_color = Color(0.87058824, 0.81960785, 0.64705884, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5fft2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uvvss"]
+bg_color = Color(0.80452245, 0, 0.05596003, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wa0v1"]
+bg_color = Color(0.87058824, 0.81960785, 0.64705884, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kcidl"]
+
+[node name="GameOver" type="Node2D" unique_id=623010512]
+script = ExtResource("1_5ruhh")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1194027102]
+
+[node name="Control" type="Control" parent="UI" unique_id=1592075910]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="UI/Control" unique_id=729172853]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 43.0
+offset_right = 1128.0
+offset_bottom = 221.0
+theme_override_colors/font_shadow_color = Color(0.557753, 0.55775315, 0.5577529, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_fonts/font = ExtResource("1_0ghu6")
+theme_override_font_sizes/font_size = 101
+text = "Wipeout!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control" unique_id=2123074159]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 396.0
+offset_top = 306.0
+offset_right = 767.0
+offset_bottom = 567.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="retry" type="Button" parent="UI/Control/VBoxContainer" unique_id=335422584]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_5ruhh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5wgwi")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yh1op")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5gs3q")
+text = "Retry"
+
+[node name="Menu" type="Button" parent="UI/Control/VBoxContainer" unique_id=568525923]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_5ruhh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_26uup")
+theme_override_styles/hover = SubResource("StyleBoxFlat_n1nf7")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5fft2")
+text = "Return to main menu"
+
+[node name="Exit" type="Button" parent="UI/Control/VBoxContainer" unique_id=2040203487]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_5ruhh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_uvvss")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wa0v1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kcidl")
+text = "Exit"
+
+[connection signal="pressed" from="UI/Control/VBoxContainer/retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="UI/Control/VBoxContainer/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="UI/Control/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
