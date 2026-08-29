@@ -3,6 +3,7 @@ shader_type spatial;
 render_mode cull_disabled;
 
 uniform float wave_height = 1.0;
+//more waves increase frequency
 uniform float wave_frequency = 0.35;
 uniform float wave_speed = 1.5;
 

@@ -3,7 +3,7 @@
 [ext_resource type="Shader" uid="uid://cgvlb8nuv22sb" path="res://Shaders/sea_scene.gdshader" id="1_nx36i"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_t1j7f"]
-size = Vector2(40, 40)
+size = Vector2(300, 300)
 subdivide_width = 100
 subdivide_depth = 100
 
@@ -21,5 +21,10 @@ shader_parameter/roughness = 0.10000000149012
 [node name="SeaScene" type="Node3D" unique_id=387515874]
 
 [node name="SeaMesh" type="MeshInstance3D" parent="." unique_id=151971888]
+editor_description = "| Variable         | Increase it         | Decrease it         |
+| ---------------- | -------------------
+| `wave_height`    | Taller waves        | Flatter waves |
+| `wave_frequency` | More waves | Fewer, longer waves |
+| `wave_speed`     | Faster-moving waves | Slower waves        |"
 mesh = SubResource("PlaneMesh_t1j7f")
 surface_material_override/0 = SubResource("ShaderMaterial_yma8c")

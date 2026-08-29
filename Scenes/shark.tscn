@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c30aohjnpur7i" path="res://Scripts/shark.gd" id="1_87kak"]
 [ext_resource type="Texture2D" uid="uid://c3tjc3ib2n8vo" path="res://Assets/GreyboxTextures/greybox_red_grid.png" id="2_cb72u"]
+[ext_resource type="PackedScene" uid="uid://c512w8ksmgpk" path="res://Assets/Models/shark_model.tscn" id="3_cb72u"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6rxyh"]
 size = Vector3(0.8, 0.5, 3)
@@ -44,5 +45,8 @@ debug_color = Color(0.98369867, 0, 0.354958, 0.41960785)
 [node name="EscapeLabel" type="Label" parent="CanvasLayer" unique_id=671240358]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="SharkModel" parent="." unique_id=775077005 instance=ExtResource("3_cb72u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15711689, 0.5253948, -0.65538216)
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

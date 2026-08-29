@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://c512w8ksmgpk"]
+
+[ext_resource type="PackedScene" uid="uid://wi88t8nusyko" path="res://Assets/Models/SharkModel.glb" id="1_y7722"]
+
+[node name="SharkModel" unique_id=310066517 instance=ExtResource("1_y7722")]
+
+[node name="Skeleton3D" parent="SharkAni001" parent_id_path=PackedInt32Array(1800032244) index="0" unique_id=1692943067]
+bones/3/rotation = Quaternion(0.03401649, -0.00057714747, -0.04647716, 0.9983399)
+bones/4/rotation = Quaternion(0.16301695, -0.18603966, -0.72289723, 0.6451622)
+bones/5/rotation = Quaternion(-0.05174965, -0.07774747, -0.17756394, 0.97966754)
+bones/6/rotation = Quaternion(0.0040373798, -0.08762312, -0.12079826, 0.9887941)
+bones/7/rotation = Quaternion(-0.0059299357, 0.104903474, 0.102384545, 0.9891802)
+bones/8/rotation = Quaternion(0.18098283, 0.1601283, 0.6364367, 0.73249745)
+bones/9/rotation = Quaternion(-0.05852299, 0.024997728, 0.06353091, 0.9959488)
+bones/10/rotation = Quaternion(0.0025717542, 0.041876778, 0.0029185729, 0.9991153)
+bones/11/rotation = Quaternion(0.00027210775, -0.039773267, 0.06472191, 0.99711037)
+bones/12/rotation = Quaternion(-0.023200806, -0.0012961825, -0.055762097, 0.99817365)
+bones/13/rotation = Quaternion(-3.85777e-08, -1.16638454e-07, -0.065064296, 0.9978812)
+bones/14/rotation = Quaternion(-3.6543163e-08, 4.364576e-09, -0.04009953, 0.99919575)
+bones/23/rotation = Quaternion(0.9909393, 0.13337336, 0.00228386, 0.015673809)
+bones/24/rotation = Quaternion(-0.010180193, 0.005830685, -0.1354053, 0.99072087)
+bones/25/rotation = Quaternion(-0.38355377, 0.05870344, -0.121262126, 0.9136388)
+bones/26/rotation = Quaternion(-0.08178586, 0.10807388, -0.080440305, 0.9875022)
+bones/27/rotation = Quaternion(0.1657812, 0.100813, -0.08937193, 0.9769166)
+bones/28/rotation = Quaternion(0.41201037, -0.04940089, -0.12534024, 0.90116423)
+bones/29/rotation = Quaternion(-0.09140087, -0.08801066, -0.10200353, 0.98665863)
+bones/30/rotation = Quaternion(-0.007968313, -0.0773419, -0.11031245, 0.99085116)
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=228149487]
+autoplay = &"SharkSwimming"
+speed_scale = 2.0

@@ -3,6 +3,9 @@ extends Node
 
 var time: float = 0.0
 
+
+
+
 @export_category("Wave Settings")
 @export var wave_height: float = 1.0
 @export var wave_frequency: float = 0.35
