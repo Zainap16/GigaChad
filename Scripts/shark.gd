@@ -25,6 +25,9 @@ var shark:CharacterBody3D
 var can_bite := true
 @export var bite_counter : int = 0
 
+@onready var bite_cooldown_timer: Timer = $BiteCooldownTimer
+@onready var start_bite_timer: Timer = $StartBiteTimer
+
 enum SharkState {
 	CHASING,
 	ATTACKING,
@@ -32,7 +35,7 @@ enum SharkState {
 }
 
 var state := SharkState.CHASING
-
+var player_in_bite_area := false
 func _ready() -> void:
 	var players = get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
@@ -43,16 +46,24 @@ func _ready() -> void:
 		
 
 
-func _process(delta: float) -> void:
-	match state:
-		SharkState.CHASING:
-			chase_player(delta)
-			update_escape_timer(delta)
-		SharkState.ATTACKING:
-			attack_player()
-		SharkState.ESCAPED:
-			pass
-	pass
+func _physics_process(delta: float) -> void:
+		match state:
+
+			SharkState.CHASING:
+				chase_player(delta)
+				update_escape_timer(delta)
+
+			SharkState.ESCAPED:
+				pass
+	#match state:
+		#SharkState.CHASING:
+			#chase_player(delta)
+			#update_escape_timer(delta)
+		#SharkState.ATTACKING:
+			#attack_player()
+		#SharkState.ESCAPED:
+			#pass
+	#pass
 	
 
 func bite_player() -> void:
@@ -64,17 +75,20 @@ func bite_player() -> void:
 
 	attack_player()
 
-	await get_tree().create_timer(bite_cooldown).timeout
-
-	can_bite = true
+	bite_cooldown_timer.start()
 	
 func attack_player() -> void:
+
 	bite_counter += 1
-	print("SHARK BITES PLAYER!" )
-	if bite_counter >= 2:
+
+	print("SHARK BITES PLAYER!")
+	print("Bite counter: ", bite_counter)
+
+	if bite_counter >= 4:
 		print("Game Over")
-	print("Bite counter: ", bite_counter )
-	
+		get_tree().change_scene_to_file(
+			"res://Scenes/Game_Over.tscn"
+		)	
 
 func chase_player(delta: float) -> void:
 
@@ -128,15 +142,40 @@ func escape_shark():
 
 func start_bite_cooldown() -> void:
 
-	await get_tree().create_timer(start_cooldown).timeout
+	#await get_tree().create_timer(start_cooldown).timeout
 
 	can_bite = true
 
 	print("SHARK CAN BITE!")
 
 func _on_detection_area_body_entered(body: Node3D) -> void:
-	if body.name == "Surfboard":
+	if body.name != "Surfboard":
+		return
+
+	player_in_bite_area = true
+
+	bite_player()
+
+func _on_bite_cooldown_timer_timeout() -> void:
+	can_bite = true
+
+	if player_in_bite_area:
 		bite_player()
-		
-#		might add a timer and then show game over screen
-		#print("You Lose")
+func _on_start_bite_timer_timeout() -> void:
+	if not can_bite:
+		return
+
+	can_bite = false
+
+	attack_player()
+
+	await get_tree().create_timer(bite_cooldown).timeout
+
+	can_bite = true
+
+
+func _on_detection_area_body_exited(body: Node3D) -> void:
+	if body.name != "Surfboard":
+		return
+
+	player_in_bite_area = false

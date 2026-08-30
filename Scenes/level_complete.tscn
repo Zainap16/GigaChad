@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dy4m4j8uk3812"]
+
+[ext_resource type="Script" uid="uid://bd11boqgihvwe" path="res://Scripts/level_complete.gd" id="1_onuut"]
+[ext_resource type="Texture2D" uid="uid://gba8gl3w2ncv" path="res://Assets/GreyboxTextures/greybox_lime_grid.png" id="1_u5kwf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rf1pf"]
+size = Vector3(49.2959, 43.021637, 14.666016)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rf1pf"]
+size = Vector3(49.2959, 43.021637, 14.666016)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_onuut"]
+albedo_texture = ExtResource("1_u5kwf")
+uv1_triplanar = true
+
+[node name="LevelComplete" type="Area3D" unique_id=536977157]
+script = ExtResource("1_onuut")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1691616635]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 21.525688, 0)
+shape = SubResource("BoxShape3D_rf1pf")
+debug_color = Color(0.13971215, 0.6459875, 0, 0.41960785)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=901387579]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4705517, 0)
+mesh = SubResource("BoxMesh_rf1pf")
+surface_material_override/0 = SubResource("StandardMaterial3D_onuut")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

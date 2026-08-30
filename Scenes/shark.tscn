@@ -1,14 +1,12 @@
 [gd_scene format=3 uid="uid://c731ttn352yod"]
 
 [ext_resource type="Script" uid="uid://c30aohjnpur7i" path="res://Scripts/shark.gd" id="1_87kak"]
-[ext_resource type="Texture2D" uid="uid://c3tjc3ib2n8vo" path="res://Assets/GreyboxTextures/greybox_red_grid.png" id="2_cb72u"]
-[ext_resource type="PackedScene" uid="uid://c512w8ksmgpk" path="res://Assets/Models/shark_model.tscn" id="3_cb72u"]
+[ext_resource type="PackedScene" uid="uid://dchi15jbctijm" path="res://Assets/Models/shark.tscn" id="3_cb72u"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6rxyh"]
 size = Vector3(0.8, 0.5, 3)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wyy8k"]
-albedo_texture = ExtResource("2_cb72u")
 uv1_triplanar = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m247r"]
@@ -24,6 +22,7 @@ collision_mask = 17
 script = ExtResource("1_87kak")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=504518211]
+visible = false
 mesh = SubResource("BoxMesh_6rxyh")
 surface_material_override/0 = SubResource("StandardMaterial3D_wyy8k")
 
@@ -46,7 +45,17 @@ debug_color = Color(0.98369867, 0, 0.354958, 0.41960785)
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="SharkModel" parent="." unique_id=775077005 instance=ExtResource("3_cb72u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15711689, 0.5253948, -0.65538216)
+[node name="Shark" parent="." unique_id=1308507061 instance=ExtResource("3_cb72u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7322488)
+
+[node name="BiteCooldownTimer" type="Timer" parent="." unique_id=295469005]
+
+[node name="StartBiteTimer" type="Timer" parent="." unique_id=1318970030]
+wait_time = 5.0
+one_shot = true
+autostart = true
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="timeout" from="BiteCooldownTimer" to="." method="_on_bite_cooldown_timer_timeout"]
+[connection signal="timeout" from="StartBiteTimer" to="." method="_on_start_bite_timer_timeout"]

@@ -1,13 +1,15 @@
 [gd_scene format=3 uid="uid://b0l3sxfrrjqw5"]
 
 [ext_resource type="Script" uid="uid://c0amht5ar27yg" path="res://Scripts/player.gd" id="1_v0iea"]
-[ext_resource type="Texture2D" uid="uid://c6loair80k8im" path="res://Assets/GreyboxTextures/greybox_green_grid.png" id="2_cvnsp"]
-[ext_resource type="PackedScene" uid="uid://ba4b6d2xwv1o2" path="res://Scenes/giga_chad_model_base_edited.tscn" id="3_6t5aa"]
+[ext_resource type="PackedScene" uid="uid://bk0wub2i4ch4b" path="res://Scenes/chads_surf.tscn" id="2_cvnsp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_v0iea"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v0iea"]
+load_path = "res://.godot/imported/greybox_green_grid.png-e34bdc3ade13e8eef37d7282e681396c.s3tc.ctex"
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6t5aa"]
-albedo_texture = ExtResource("2_cvnsp")
+albedo_texture = SubResource("CompressedTexture2D_v0iea")
 uv1_triplanar = true
 
 [node name="Player" type="Node3D" unique_id=726525635 groups=["player"]]
@@ -15,25 +17,32 @@ script = ExtResource("1_v0iea")
 can_move = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1525651347]
+visible = false
 mesh = SubResource("CapsuleMesh_v0iea")
 surface_material_override/0 = SubResource("StandardMaterial3D_6t5aa")
 
 [node name="camera_mount" type="Node3D" parent="." unique_id=2080595825]
 
-[node name="Camera3D" type="Camera3D" parent="camera_mount" unique_id=1608264889]
+[node name="SpringArm3D" type="SpringArm3D" parent="camera_mount" unique_id=1318592951]
 transform = Transform3D(1, 0, 0, 0, 0.992495, 0.12228509, 0, -0.12228509, 0.992495, 0, 1.4484879, 2.9348316)
+spring_length = 0.5
+margin = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="camera_mount/SpringArm3D" unique_id=1608264889]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6549256, -0.080693245)
 current = true
+fov = 50.0
 
 [node name="visuals" type="Node3D" parent="." unique_id=925085610]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1840650569]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5767487, -0.8710089)
+visible = false
 size = Vector3(0.3, 0.3, 0.3)
 
 [node name="PlayerFeet" type="Marker3D" parent="." unique_id=1111151527]
 editor_description = "Player's feet"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.002948, 0)
 
-[node name="GigaChadModelBaseEdited" parent="." unique_id=1865292162 instance=ExtResource("3_6t5aa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6446533, -1.181219, -0.040127277)
-visible = false
+[node name="ChadsSurf" parent="." unique_id=1544832320 instance=ExtResource("2_cvnsp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0032219887, -1.1396959, 0.15747738)

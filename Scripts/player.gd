@@ -15,6 +15,18 @@ var is_on_surfboard := false
 @export var sens_horizontal: float = 0.2
 @export var sens_vertical: float = 0.2
 
+var camera_yaw := 0.0
+var camera_pitch := 0.0
+
+@export_category("Camera Limits")
+##Pitch = looking UP and DOWN.
+@export var min_pitch := -45.0
+@export var max_pitch := 40.0
+
+
+##Yaw = looking LEFT and RIGHT.
+@export var min_yaw := -60.0
+@export var max_yaw := 90.0
 
 @export_category("Surfing Lean")
 @export var max_forward_lean := 15.0
@@ -33,6 +45,7 @@ var escaping_shark := false
 @export_category("Balance")
 @export var max_balance_tilt := 25.0
 @export var balance_sensitivity := 1.0
+@onready var camera_3d: Camera3D = $camera_mount/SpringArm3D/Camera3D
 
 
 ##Think of balance as: 0 = perfectly balanced 10 = slightly unstable 20 = very unstable 25+ = falling
@@ -41,10 +54,15 @@ var balance := 0.0
 ##makes camera move slowly the lower the number is
 @export var rotation_smoothing := 5.0
 func _ready() -> void:
-
+	WaveManager.player = self
+	print("PLAYER REGISTERED")
+	print("WaveManager.player = ", WaveManager.player)
+	camera_3d.current = true
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
+	
 	mount_surfboard()
+	print("CAMERA FOUND: ", camera_3d)
+	#print("CAMERA CURRENT: ", camera.current)
 
 
 func _input(event):
@@ -54,19 +72,25 @@ func _input(event):
 
 	if event is InputEventMouseMotion:
 
-		camera_mount.rotate_x(
-			deg_to_rad(-event.relative.y * sens_vertical)
+		# LEFT / RIGHT
+		camera_yaw -= event.relative.x * sens_horizontal
+		camera_yaw = clamp(
+			camera_yaw,
+			min_yaw,
+			max_yaw
 		)
 
-		camera_mount.rotation.x = clamp(
-			camera_mount.rotation.x,
-			deg_to_rad(-90),
-			deg_to_rad(45)
+		# UP / DOWN
+		camera_pitch -= event.relative.y * sens_vertical
+		camera_pitch = clamp(
+			camera_pitch,
+			min_pitch,
+			max_pitch
 		)
 
-		rotate_y(
-			deg_to_rad(-event.relative.x * sens_horizontal)
-		)
+		# Apply rotation
+		camera_mount.rotation.y = deg_to_rad(camera_yaw)
+		camera_mount.rotation.x = deg_to_rad(camera_pitch)
 
 
 func _process(delta: float) -> void:

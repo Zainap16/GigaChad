@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://n5otw7m33388"
-path.s3tc="res://.godot/imported/SharkModel_shark.png-9eff6734284726e7ba183a07c392a80f.s3tc.ctex"
+uid="uid://m0ix0eyu6rfa"
+path.s3tc="res://.godot/imported/Shark_shark_eye.png-7a8e987a4e0c71ffba361c1472c86583.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "f0bca13513288dd1848510a1282bc5a0"
+"md5": "6d2208dfed0a5919b7f7445759fc20de"
 }
 
 [deps]
 
-source_file="res://Assets/Models/SharkModel_shark.png"
-dest_files=["res://.godot/imported/SharkModel_shark.png-9eff6734284726e7ba183a07c392a80f.s3tc.ctex"]
+source_file="res://Assets/Models/Shark_shark_eye.png"
+dest_files=["res://.godot/imported/Shark_shark_eye.png-7a8e987a4e0c71ffba361c1472c86583.s3tc.ctex"]
 
 [params]
 

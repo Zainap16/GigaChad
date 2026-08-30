@@ -8,27 +8,27 @@ extends Node3D
 
 #func _ready() -> void:
 
-
-func _process(delta: float) -> void:
-
-	if WaveManager.player == null:
-		return
-
-	# Follow player's position
-	var target_position := WaveManager.player.global_position
-
-	target_position.y += camera_height
-
-	global_position = global_position.lerp(
-		target_position,
-		follow_speed * delta
-	)
-
-	# Follow player's horizontal direction
-	var target_y := WaveManager.player.global_rotation.y
-
-	rotation.y = lerp_angle(
-		rotation.y,
-		target_y,
-		rotation_speed * delta
-	)
+#
+#func _process(delta: float) -> void:
+#
+	#if WaveManager.player == null:
+		#return
+#
+	## Follow player's position
+	#var target_position := WaveManager.player.global_position
+#
+	#target_position.y += camera_height
+#
+	#global_position = global_position.lerp(
+		#target_position,
+		#follow_speed * delta
+	#)
+#
+	## Follow player's horizontal direction
+	#var target_y := WaveManager.player.global_rotation.y
+#
+	#rotation.y = lerp_angle(
+		#rotation.y,
+		#target_y,
+		#rotation_speed * delta
+	#)

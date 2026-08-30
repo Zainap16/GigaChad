@@ -1,0 +1,210 @@
+[gd_scene format=3 uid="uid://cp3gpekdfc4u1"]
+
+[ext_resource type="Texture2D" uid="uid://b1t842g2yf28n" path="res://Assets/sunset.png" id="1_7vrkn"]
+[ext_resource type="Script" uid="uid://cemmqkij853qw" path="res://Scripts/main_menu.gd" id="1_jix8l"]
+[ext_resource type="FontFile" uid="uid://c8be7jt47ep10" path="res://Assets/BLUE OCEAN.ttf" id="2_fu7sn"]
+
+[sub_resource type="GDScript" id="GDScript_1ehe0"]
+script/source = "extends Node2D
+
+@export var speed: float = 100.0
+
+@onready var bg1: Sprite2D = $Background1
+@onready var bg2: Sprite2D = $Background2
+
+
+func _ready():
+	setup_background()
+	get_viewport().size_changed.connect(setup_background)
+
+
+func setup_background():
+	var screen_size = get_viewport_rect().size
+
+	# Get the original image size
+	var texture_size = bg1.texture.get_size()
+
+	# Scale the image to fill the screen
+	var scale_factor = max(
+		screen_size.x / texture_size.x,
+		screen_size.y / texture_size.y
+	)
+
+	bg1.scale = Vector2(scale_factor, scale_factor)
+	bg2.scale = Vector2(scale_factor, scale_factor)
+
+	# Get the scaled width
+	var background_width = texture_size.x * scale_factor
+
+	bg1.position = Vector2(0, 0)
+	bg2.position = Vector2(background_width, 0)
+
+
+func _process(delta):
+	var background_width = bg1.texture.get_size().x * bg1.scale.x
+
+	bg1.position.x -= speed * delta
+	bg2.position.x -= speed * delta
+
+	if bg1.position.x <= -background_width:
+		bg1.position.x = bg2.position.x + background_width
+
+	if bg2.position.x <= -background_width:
+		bg2.position.x = bg1.position.x + background_width
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fu7sn"]
+bg_color = Color(0.3863206, 0.836556, 0.8239749, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(1, 1, 1, 1)
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jix8l"]
+bg_color = Color(0.22469217, 0.79320955, 0.32737476, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_glbon"]
+bg_color = Color(0.87058824, 0.81960785, 0.64705884, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0o4t1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nlkkf"]
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe12f"]
+bg_color = Color(0.87058824, 0.81960785, 0.64705884, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0k4wn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8qtwp"]
+bg_color = Color(0.80452245, 0, 0.05596003, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dy7ct"]
+bg_color = Color(0.87058824, 0.81960785, 0.64705884, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j5v2v"]
+
+[node name="MainMenu" type="Node2D" unique_id=1424198185]
+script = ExtResource("1_jix8l")
+
+[node name="Background" type="Node2D" parent="." unique_id=1138361877]
+script = SubResource("GDScript_1ehe0")
+speed = 150.0
+
+[node name="Background1" type="Sprite2D" parent="Background" unique_id=886593719]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_7vrkn")
+centered = false
+
+[node name="Background2" type="Sprite2D" parent="Background" unique_id=74694994]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_7vrkn")
+centered = false
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1784902116]
+
+[node name="Control" type="Control" parent="UI" unique_id=1219804981]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="UI/Control" unique_id=374826475]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 43.0
+offset_right = 1128.0
+offset_bottom = 221.0
+theme_override_colors/font_shadow_color = Color(0.557753, 0.55775315, 0.5577529, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_fonts/font = ExtResource("2_fu7sn")
+theme_override_font_sizes/font_size = 101
+text = "Maze Surfing"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control" unique_id=943186338]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 396.0
+offset_top = 306.0
+offset_right = 767.0
+offset_bottom = 567.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Start" type="Button" parent="UI/Control/VBoxContainer" unique_id=423830691]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_fu7sn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jix8l")
+theme_override_styles/hover = SubResource("StyleBoxFlat_glbon")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0o4t1")
+text = "Start Game"
+
+[node name="Options" type="Button" parent="UI/Control/VBoxContainer" unique_id=1514586821]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_fu7sn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nlkkf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qe12f")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0k4wn")
+text = "Options"
+
+[node name="Exit" type="Button" parent="UI/Control/VBoxContainer" unique_id=1498148673]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_fu7sn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8qtwp")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dy7ct")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_j5v2v")
+text = "Exit"
+
+[connection signal="pressed" from="UI/Control/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="UI/Control/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="UI/Control/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

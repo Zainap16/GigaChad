@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bx0etj5ivm0xq"
-path="res://.godot/imported/GigaChadModelBaseEdited.glb-4c6e0a1998207b4919efe7d929a01dda.scn"
+uid="uid://dcq4ba76gipb6"
+path="res://.godot/imported/ChadsSurf.glb-135b755f35527b7cb5e010bcb8846422.scn"
 
 [deps]
 
-source_file="res://Assets/Models/GigaChadModelBaseEdited.glb"
-dest_files=["res://.godot/imported/GigaChadModelBaseEdited.glb-4c6e0a1998207b4919efe7d929a01dda.scn"]
+source_file="res://ChadsSurf.glb"
+dest_files=["res://.godot/imported/ChadsSurf.glb-135b755f35527b7cb5e010bcb8846422.scn"]
 
 [params]
 

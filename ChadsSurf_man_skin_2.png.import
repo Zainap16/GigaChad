@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckgrxbnmseako"
-path.s3tc="res://.godot/imported/Shark_shark.png-626f94417571aff532cea06a97c6f17b.s3tc.ctex"
+uid="uid://ci5n3wme0f5lh"
+path.s3tc="res://.godot/imported/ChadsSurf_man_skin_2.png-11a9d6ecabe97846d70e88a7dd43b1fa.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "f0bca13513288dd1848510a1282bc5a0"
+"md5": "cf96b5c1b2e98af948ba05dde13c9921"
 }
 
 [deps]
 
-source_file="res://Assets/Models/Shark_shark.png"
-dest_files=["res://.godot/imported/Shark_shark.png-626f94417571aff532cea06a97c6f17b.s3tc.ctex"]
+source_file="res://ChadsSurf_man_skin_2.png"
+dest_files=["res://.godot/imported/ChadsSurf_man_skin_2.png-11a9d6ecabe97846d70e88a7dd43b1fa.s3tc.ctex"]
 
 [params]
 

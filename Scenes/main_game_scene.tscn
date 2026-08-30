@@ -1,12 +1,9 @@
 [gd_scene format=3 uid="uid://cbm3iy64c7q3l"]
 
 [ext_resource type="Script" uid="uid://cj00hjeeknijm" path="res://Scripts/main_game_scene.gd" id="1_t40n3"]
-[ext_resource type="Texture2D" uid="uid://cal8rp5nuh81n" path="res://Assets/GreyboxTextures/greybox_dark_grid.png" id="2_wb2by"]
 [ext_resource type="Texture2D" uid="uid://b0vywido7ohbl" path="res://Assets/sky_39_2k.png" id="2_y8s6f"]
-[ext_resource type="PackedScene" uid="uid://dktx27v5b6ck6" path="res://Scenes/sea_scene.tscn" id="3_wb2by"]
 [ext_resource type="PackedScene" uid="uid://duamnfufibm1s" path="res://Scenes/surfboard.tscn" id="5_t40n3"]
-[ext_resource type="PackedScene" uid="uid://b01e8sf5nddih" path="res://Scenes/ramp.tscn" id="6_udhrh"]
-[ext_resource type="PackedScene" uid="uid://kxchasrxe3gd" path="res://Scenes/camera_rig.tscn" id="7_hkk18"]
+[ext_resource type="PackedScene" uid="uid://dy4m4j8uk3812" path="res://Scenes/level_complete.tscn" id="6_udhrh"]
 [ext_resource type="PackedScene" uid="uid://doveaptetws4q" path="res://Scenes/shark_spawn_point_activation.tscn" id="7_t25fw"]
 [ext_resource type="PackedScene" uid="uid://btquwyl2m2hko" path="res://Scenes/Levels/maze_easy.tscn" id="8_t25fw"]
 
@@ -20,10 +17,6 @@ sky_material = SubResource("PanoramaSkyMaterial_mlj66")
 background_mode = 2
 sky = SubResource("Sky_jl3vg")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_syfkn"]
-albedo_texture = ExtResource("2_wb2by")
-uv1_triplanar = true
-
 [node name="MainGameScene" type="Node3D" unique_id=2076651091]
 script = ExtResource("1_t40n3")
 
@@ -34,17 +27,8 @@ environment = SubResource("Environment_g2nae")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="floor" type="CSGBox3D" parent="." unique_id=1456495516]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.23040771, 0)
-visible = false
-material_override = SubResource("StandardMaterial3D_syfkn")
-size = Vector3(32.929443, 0.5391846, 26.682617)
-
-[node name="SeaScene" parent="." unique_id=387515874 instance=ExtResource("3_wb2by")]
-visible = false
-
 [node name="Surfboard" parent="." unique_id=499914239 instance=ExtResource("5_t40n3")]
-transform = Transform3D(0.9999619, 0, 0.008726535, 0, 1, 0, -0.008726535, 0, 0.9999619, -6.4140053, 0, 17.35508)
+transform = Transform3D(-0.99829525, 0, 0.058365636, 0, 1, 0, -0.058365636, 0, -0.99829525, -6.4140053, 0, 17.35508)
 collision_layer = 4
 collision_mask = 17
 can_sleep = false
@@ -56,19 +40,21 @@ sinking_torque = 7.0
 [node name="PlayerAnchor" type="Marker3D" parent="Surfboard" unique_id=231458562]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 
-[node name="Ramp" parent="." unique_id=62801989 instance=ExtResource("6_udhrh")]
-transform = Transform3D(1, 0, 0, 0, 0.9611462, -0.27604, 0, 0.27604, 0.9611462, 0, 0.69997644, -6.528872)
-
 [node name="RestartTimer" type="Timer" parent="." unique_id=344444854]
 wait_time = 2.0
 one_shot = true
 
-[node name="CameraRig" parent="." unique_id=132255753 instance=ExtResource("7_hkk18")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4265625, 12.966309)
-camera_height = 3.0
-
 [node name="SharkSpawnArea" parent="." unique_id=1203851588 instance=ExtResource("7_t25fw")]
 
 [node name="MazeEasy" parent="." unique_id=60314087 instance=ExtResource("8_t25fw")]
+
+[node name="SharkSpawnArea2" parent="." unique_id=837547821 instance=ExtResource("7_t25fw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.586835, 0, 27.742958)
+
+[node name="LevelComplete" parent="." unique_id=536977157 instance=ExtResource("6_udhrh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.472961, 0, -116.89807)
+
+[node name="LevelComplete2" parent="." unique_id=1910977050 instance=ExtResource("6_udhrh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.862177, 0, 110.74028)
 
 [connection signal="timeout" from="RestartTimer" to="." method="_on_restart_timer_timeout"]

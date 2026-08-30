@@ -12,14 +12,15 @@ var time: float = 0.0
 @export var wave_speed: float = 1.5
 
 
-var player:Node3D
+var player: Node3D
 
 func _ready():
-	var players = get_tree().get_nodes_in_group("player")
-	if players.size() > 0:
-		player = players[0]
-	else:
-		push_warning("Player not foundd")
+	pass
+	#var players = get_tree().get_nodes_in_group("player")
+	#if players.size() > 0:
+		#player = players[0]
+	#else:
+		#push_warning("Player not foundd")
 
 func _process(delta: float) -> void:
 	time += delta

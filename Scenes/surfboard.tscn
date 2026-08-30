@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://duamnfufibm1s"]
 
 [ext_resource type="Script" uid="uid://d2hrx706p46ae" path="res://Scripts/surfboard.gd" id="1_wr883"]
-[ext_resource type="Texture2D" uid="uid://c3tjc3ib2n8vo" path="res://Assets/GreyboxTextures/greybox_red_grid.png" id="1_yj6fq"]
+[ext_resource type="Texture2D" uid="uid://c3tjc3ib2n8vo" path="res://Assets/GreyboxTextures/greybox_red_grid.png" id="2_8cbvr"]
 [ext_resource type="PackedScene" uid="uid://b0l3sxfrrjqw5" path="res://Scenes/player.tscn" id="3_8cbvr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wr883"]
-albedo_texture = ExtResource("1_yj6fq")
+albedo_texture = ExtResource("2_8cbvr")
 uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_n7llf"]
@@ -23,6 +23,7 @@ script = ExtResource("1_wr883")
 player = NodePath("Player")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=523786569]
+visible = false
 mesh = SubResource("BoxMesh_n7llf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=878753931]
@@ -36,6 +37,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.7323159)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="BuoyancyPoints/FrontProbe" unique_id=325506988]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30710924, 0)
+visible = false
 size = Vector3(0.3, 0.3, 0.3)
 
 [node name="BackProbe" type="Marker3D" parent="BuoyancyPoints" unique_id=1918912526]
