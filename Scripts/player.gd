@@ -48,6 +48,8 @@ var escaping_shark := false
 @onready var camera_3d: Camera3D = $camera_mount/SpringArm3D/Camera3D
 
 
+@export var sens = 0.2
+
 ##Think of balance as: 0 = perfectly balanced 10 = slightly unstable 20 = very unstable 25+ = falling
 var balance := 0.0
 
@@ -71,26 +73,28 @@ func _input(event):
 		get_tree().quit()
 
 	if event is InputEventMouseMotion:
-
-		# LEFT / RIGHT
-		camera_yaw -= event.relative.x * sens_horizontal
-		camera_yaw = clamp(
-			camera_yaw,
-			min_yaw,
-			max_yaw
-		)
-
-		# UP / DOWN
-		camera_pitch -= event.relative.y * sens_vertical
-		camera_pitch = clamp(
-			camera_pitch,
-			min_pitch,
-			max_pitch
-		)
-
-		# Apply rotation
-		camera_mount.rotation.y = deg_to_rad(camera_yaw)
-		camera_mount.rotation.x = deg_to_rad(camera_pitch)
+		rotate_y(deg_to_rad(-event.relative.x * sens))
+		camera_mount.rotate_x(deg_to_rad(-event.relative.y * sens))
+		camera_mount.rotation.x = clamp(camera_mount.rotation.x, deg_to_rad(-90), deg_to_rad(45))
+		## LEFT / RIGHT
+		#camera_yaw -= event.relative.x * sens_horizontal
+		#camera_yaw = clamp(
+			#camera_yaw,
+			#min_yaw,
+			#max_yaw
+		#)
+#
+		## UP / DOWN
+		#camera_pitch -= event.relative.y * sens_vertical
+		#camera_pitch = clamp(
+			#camera_pitch,
+			#min_pitch,
+			#max_pitch
+		#)
+#
+		## Apply rotation
+		#camera_mount.rotation.y = deg_to_rad(camera_yaw)
+		#camera_mount.rotation.x = deg_to_rad(camera_pitch)
 
 
 func _process(delta: float) -> void:

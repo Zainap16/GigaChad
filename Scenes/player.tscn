@@ -25,7 +25,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_6t5aa")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="camera_mount" unique_id=1318592951]
 transform = Transform3D(1, 0, 0, 0, 0.992495, 0.12228509, 0, -0.12228509, 0.992495, 0, 1.4484879, 2.9348316)
-spring_length = 0.5
+spring_length = 5.0
 margin = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="camera_mount/SpringArm3D" unique_id=1608264889]

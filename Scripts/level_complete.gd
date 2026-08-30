@@ -16,8 +16,10 @@ var victory_triggered := false
 
 func _ready() -> void:
 
+
 	# Start with the fade hidden
 	fade.visible = false
+
 	fade.modulate.a = 0.0
 
 
@@ -36,9 +38,10 @@ func _on_body_entered(body: Node3D) -> void:
 	print("YOU WIN")
 
 	# Play victory audio once
-	win_audio.play()
+	#win_audio.play()
 	victory_2.play()
-
+	set_collision_mask_value(3, false)
+	
 	# Start fade
 	play_fade()
 
@@ -50,10 +53,7 @@ func play_fade() -> void:
 
 	var tween := create_tween()
 
-	# -------------------------
-	# FADE IN
-	# -------------------------
-
+	# Fade to black
 	tween.tween_property(
 		fade,
 		"modulate:a",
@@ -61,28 +61,10 @@ func play_fade() -> void:
 		fade_in_duration
 	)
 
-	# -------------------------
-	# HOLD
-	# -------------------------
-
-	tween.tween_interval(display_duration)
-
-	# -------------------------
-	# FADE OUT
-	# -------------------------
-
-	tween.tween_property(
-		fade,
-		"modulate:a",
-		0.0,
-		fade_out_duration
-	)
-
-	# Hide after fade finishes
-	tween.tween_callback(func():
-		fade.visible = false
-	)
+	await tween.finished
+	get_tree().change_scene_to_file("res://Scenes/credits.tscn")
+	
 
 
-func _on_body_exited(body: Node3D) -> void:
+func _on_body_exited(_body: Node3D) -> void:
 	pass

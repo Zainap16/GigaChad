@@ -29,7 +29,7 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="Surfboard" parent="." unique_id=499914239 instance=ExtResource("5_t40n3")]
-transform = Transform3D(0.03920737, 0, -0.99923116, 0, 1, 0, 0.99923116, 0, 0.03920737, -6.4140053, 0, -100.275085)
+transform = Transform3D(0.998614, 0, 0.05263208, 0, 1, 0, -0.05263208, 0, 0.998614, -6.4140053, 0, -41.480347)
 collision_layer = 4
 collision_mask = 17
 can_sleep = false

@@ -146,7 +146,7 @@ theme_override_colors/font_shadow_color = Color(0.557753, 0.55775315, 0.5577529,
 theme_override_constants/shadow_offset_x = 10
 theme_override_fonts/font = ExtResource("2_fu7sn")
 theme_override_font_sizes/font_size = 101
-text = "Maze Surfing"
+text = "Giga Doode"
 horizontal_alignment = 1
 vertical_alignment = 1
 

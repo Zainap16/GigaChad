@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://eih8msc1s0nh"]
+
+[ext_resource type="VideoStream" uid="uid://dv2itxcipf6j" path="res://Assets/Models/Maze_Credits.ogv" id="1_r18jl"]
+[ext_resource type="Script" uid="uid://dyc3iys5d4utx" path="res://Scenes/credits.gd" id="2_gryuy"]
+
+[node name="Credits" type="VideoStreamPlayer" unique_id=993311782]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.3530008, 1.5652107)
+mouse_filter = 2
+stream = ExtResource("1_r18jl")
+autoplay = true
+script = ExtResource("2_gryuy")
+
+[node name="Skip" type="Button" parent="." unique_id=1924909763]
+layout_mode = 0
+offset_left = 734.6633
+offset_top = 349.4737
+offset_right = 845.6633
+offset_bottom = 411.4737
+theme_override_font_sizes/font_size = 30
+text = "Skip"
+
+[connection signal="finished" from="." to="." method="_on_finished"]
+[connection signal="pressed" from="Skip" to="." method="_on_skip_pressed"]
