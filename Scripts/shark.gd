@@ -17,6 +17,7 @@ var escaping := false
 
 var player:Node3D
 var shark:CharacterBody3D
+@onready var control: Control = $CanvasLayer/Control
 
 @export_category("SharkAttack")
 @export var bite_cooldown := 1.0
@@ -27,7 +28,11 @@ var can_bite := true
 
 @onready var bite_cooldown_timer: Timer = $BiteCooldownTimer
 @onready var start_bite_timer: Timer = $StartBiteTimer
-
+#@onready var win_audio: AudioStreamPlayer = $WinAudio
+@onready var ominous_audio: AudioStreamPlayer = $OminousAudio
+@export var fade_duration := 0.3
+@export var display_duration := 0.5
+var fading := false
 enum SharkState {
 	CHASING,
 	ATTACKING,
@@ -36,10 +41,17 @@ enum SharkState {
 
 var state := SharkState.CHASING
 var player_in_bite_area := false
+@onready var fade: ColorRect = $CanvasLayer/Fade
+
 func _ready() -> void:
+	control.visible = false
+	control.modulate.a = 0.0
+	fade.modulate.a = 0.0
+
 	var players = get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
 		player = players[0]
+		ominous_audio.play()
 	else:
 		push_warning("Player not foundd")
 	start_bite_cooldown()
@@ -54,17 +66,8 @@ func _physics_process(delta: float) -> void:
 				update_escape_timer(delta)
 
 			SharkState.ESCAPED:
+				#win_audio.play()
 				pass
-	#match state:
-		#SharkState.CHASING:
-			#chase_player(delta)
-			#update_escape_timer(delta)
-		#SharkState.ATTACKING:
-			#attack_player()
-		#SharkState.ESCAPED:
-			#pass
-	#pass
-	
 
 func bite_player() -> void:
 
@@ -75,20 +78,32 @@ func bite_player() -> void:
 
 	attack_player()
 
-	bite_cooldown_timer.start()
-	
-func attack_player() -> void:
+	bite_ui_animation()
 
+	bite_cooldown_timer.start()
+
+	#if not can_bite:
+		#return
+#
+	#can_bite = false
+#
+	#attack_player()
+#
+	#bite_cooldown_timer.start()
+	#bite_ui_animation()
+@onready var player_screaming: AudioStreamPlayer = $PlayerScreaming
+var player_screamed_once:= false
+func attack_player() -> void:
 	bite_counter += 1
 
 	print("SHARK BITES PLAYER!")
 	print("Bite counter: ", bite_counter)
 
-	if bite_counter >= 4:
-		print("Game Over")
-		get_tree().change_scene_to_file(
-			"res://Scenes/Game_Over.tscn"
-		)	
+	if bite_counter >= 4 and not player_screamed_once:
+		player_screamed_once = true
+
+		print("GAME OVER")
+		player_screaming.play()
 
 func chase_player(delta: float) -> void:
 
@@ -111,6 +126,7 @@ func chase_player(delta: float) -> void:
 		global_position + direction,
 		Vector3.UP
 	)
+	
 
 
 func update_escape_timer(delta: float) -> void:
@@ -125,7 +141,7 @@ func update_escape_timer(delta: float) -> void:
 		escape_timer += delta
 		var remaining := escape_time - escape_timer
 
-		escape_label.text = "ESCAPE: %.1f" % remaining
+		escape_label.text = "HOLD W TO ESCAPE THE SHARK!\nESCAPE: %.1f" % remaining
 		escape_label.visible = true
 	else:
 
@@ -133,12 +149,15 @@ func update_escape_timer(delta: float) -> void:
 		escape_timer = 0.0
 		escape_label.visible = false
 	if escape_timer >= escape_time:
-
+		state = SharkState.ESCAPED
 		escape_shark()
 		
 ##Kills shark once outrun
 func escape_shark():
+	
+	ominous_audio.stop()
 	queue_free()
+	
 
 func start_bite_cooldown() -> void:
 
@@ -169,7 +188,7 @@ func _on_start_bite_timer_timeout() -> void:
 
 	attack_player()
 
-	await get_tree().create_timer(bite_cooldown).timeout
+	#await get_tree().create_timer(bite_cooldown).timeout
 
 	can_bite = true
 
@@ -179,3 +198,54 @@ func _on_detection_area_body_exited(body: Node3D) -> void:
 		return
 
 	player_in_bite_area = false
+
+
+func bite_ui_animation() -> void:
+	control.visible = true
+	control.modulate.a = 0.0
+
+	var tween := create_tween()
+
+	# Fade IN
+	tween.tween_property(
+		control,
+		"modulate:a",
+		1.0,
+		fade_duration
+	)
+
+	# Stay visible
+	tween.tween_interval(display_duration)
+
+	# Fade OUT
+	tween.tween_property(
+		control,
+		"modulate:a",
+		0.0,
+		fade_duration
+	)
+
+	# Hide once completely faded
+	tween.tween_callback(func():
+		control.visible = false
+	)
+func fade_to_scene(scene_path: String) -> void:
+
+	var tween := create_tween()
+
+	tween.tween_property(
+		fade,
+		"modulate:a",
+		1.0,
+		1.0
+	)
+
+	await tween.finished
+
+	get_tree().change_scene_to_file(scene_path)
+func _on_player_screaming_finished() -> void:
+		#player_screamed_once = true
+		
+		fade_to_scene(
+			"res://Scenes/Game_Over.tscn"
+		)	

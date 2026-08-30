@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bd11boqgihvwe" path="res://Scripts/level_complete.gd" id="1_onuut"]
 [ext_resource type="Texture2D" uid="uid://gba8gl3w2ncv" path="res://Assets/GreyboxTextures/greybox_lime_grid.png" id="1_u5kwf"]
+[ext_resource type="AudioStream" uid="uid://ds3o64esimi4q" path="res://Music/Victory1.mp3" id="3_xuta2"]
+[ext_resource type="AudioStream" uid="uid://dp4p55cm4q7cx" path="res://Music/Victory2.mp3" id="4_q8x36"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rf1pf"]
 size = Vector3(49.2959, 43.021637, 14.666016)
@@ -14,6 +16,8 @@ albedo_texture = ExtResource("1_u5kwf")
 uv1_triplanar = true
 
 [node name="LevelComplete" type="Area3D" unique_id=536977157]
+collision_layer = 64
+collision_mask = 4
 script = ExtResource("1_onuut")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1691616635]
@@ -26,4 +30,36 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4705517, 0)
 mesh = SubResource("BoxMesh_rf1pf")
 surface_material_override/0 = SubResource("StandardMaterial3D_onuut")
 
+[node name="WinAudio" type="AudioStreamPlayer" parent="." unique_id=1667301487]
+stream = ExtResource("3_xuta2")
+volume_db = 24.0
+
+[node name="Winning Point" type="Label3D" parent="." unique_id=1561981519]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28.430285, 0)
+billboard = 2
+modulate = Color(0.19397101, 0.73803633, 1.347661e-06, 1)
+text = "Winning Point Here⬇️"
+font_size = 800
+
+[node name="Victory2" type="AudioStreamPlayer" parent="." unique_id=615150176]
+stream = ExtResource("4_q8x36")
+
+[node name="UI" type="Control" parent="." unique_id=1084827126]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fade" type="ColorRect" parent="UI" unique_id=1114818170]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.004899827, 0.004899827, 0.004899827, 1)
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://c731ttn352yod"]
 
 [ext_resource type="Script" uid="uid://c30aohjnpur7i" path="res://Scripts/shark.gd" id="1_87kak"]
-[ext_resource type="PackedScene" uid="uid://dchi15jbctijm" path="res://Assets/Models/shark.tscn" id="3_cb72u"]
+[ext_resource type="Texture2D" uid="uid://cpv13n4ow6rg2" path="res://Assets/blood_splatter.png" id="2_6rxyh"]
+[ext_resource type="PackedScene" uid="uid://dchi15jbctijm" path="res://Assets/Models/sharkmodel.tscn" id="3_cb72u"]
+[ext_resource type="AudioStream" uid="uid://ppak4enwbkmq" path="res://Music/ChaseShark.mp3" id="4_6rxyh"]
+[ext_resource type="AudioStream" uid="uid://dve6nbr6rrn63" path="res://Music/PlayerScreaming.mp3" id="5_wyy8k"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6rxyh"]
 size = Vector3(0.8, 0.5, 3)
@@ -42,20 +45,68 @@ debug_color = Color(0.98369867, 0, 0.354958, 0.41960785)
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=153145653]
 
 [node name="EscapeLabel" type="Label" parent="CanvasLayer" unique_id=671240358]
-offset_right = 40.0
-offset_bottom = 23.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -27.0
+offset_top = 57.0
+offset_right = 80.0
+offset_bottom = 107.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.9998464, 0.35335022, 0.292491, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Test"
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=473545226]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control" unique_id=1311920278]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_6rxyh")
+expand_mode = 1
+
+[node name="Fade" type="ColorRect" parent="CanvasLayer" unique_id=901769275]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="Shark" parent="." unique_id=1308507061 instance=ExtResource("3_cb72u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7322488)
 
 [node name="BiteCooldownTimer" type="Timer" parent="." unique_id=295469005]
+wait_time = 2.0
+one_shot = true
 
 [node name="StartBiteTimer" type="Timer" parent="." unique_id=1318970030]
 wait_time = 5.0
 one_shot = true
 autostart = true
 
+[node name="OminousAudio" type="AudioStreamPlayer" parent="." unique_id=1639651614]
+stream = ExtResource("4_6rxyh")
+volume_db = -10.0
+
+[node name="PlayerScreaming" type="AudioStreamPlayer" parent="." unique_id=1109105037]
+stream = ExtResource("5_wyy8k")
+
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
 [connection signal="timeout" from="BiteCooldownTimer" to="." method="_on_bite_cooldown_timer_timeout"]
 [connection signal="timeout" from="StartBiteTimer" to="." method="_on_start_bite_timer_timeout"]
+[connection signal="finished" from="PlayerScreaming" to="." method="_on_player_screaming_finished"]

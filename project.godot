@@ -25,6 +25,10 @@ player=""
 sharks=""
 shark_spawn=""
 
+[gui]
+
+theme/custom_font="uid://c8be7jt47ep10"
+
 [input]
 
 forward={

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://d2hrx706p46ae" path="res://Scripts/surfboard.gd" id="1_wr883"]
 [ext_resource type="Texture2D" uid="uid://c3tjc3ib2n8vo" path="res://Assets/GreyboxTextures/greybox_red_grid.png" id="2_8cbvr"]
 [ext_resource type="PackedScene" uid="uid://b0l3sxfrrjqw5" path="res://Scenes/player.tscn" id="3_8cbvr"]
+[ext_resource type="PackedScene" uid="uid://bp0r2cjm1u765" path="res://Assets/Models/SurfBoardGiga.glb" id="4_fnpre"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wr883"]
 albedo_texture = ExtResource("2_8cbvr")
@@ -20,7 +21,10 @@ mass = 0.5
 linear_damp = 0.5
 angular_damp = 1.0
 script = ExtResource("1_wr883")
+wave_push = 6.0
 player = NodePath("Player")
+steering_torque = 15.0
+acceleration_force = 20.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=523786569]
 visible = false
@@ -56,3 +60,6 @@ transform = Transform3D(1, 0, 0, 0, 0.99991864, 0.01275801, 0, -0.01275801, 0.99
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03062582, 1.0858996, 0)
 surfboard = NodePath("..")
 rotation_smoothing = 2.0
+
+[node name="SurfBoardGiga" parent="." unique_id=578681139 instance=ExtResource("4_fnpre")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01377058, 0.019189715, 0.024525523)

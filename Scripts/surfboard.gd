@@ -46,6 +46,7 @@ var is_sinking := false
 
 @onready var restart_timer: Timer = $"../RestartTimer"
 
+
 func _physics_process(_delta: float) -> void:
 
 	if is_sinking:
@@ -288,40 +289,7 @@ func apply_player_acceleration() -> void:
 	apply_central_force(
 		forward * input * acceleration_force
 	)
-#func apply_player_acceleration() -> void:
-#
-	#if not player.can_move:
-		#return
-	#var input := Input.get_axis("backward", "forward")
-#
-	#var forward := -global_transform.basis.z
-#
-	#if input > 0.0:
-		## W - accelerate
-		#apply_central_force(
-			#forward * input * acceleration_force
-		#)
-#
-	#elif input < 0.0:
-		## S - brake
-		#var forward_speed := linear_velocity.dot(forward)
-#
-		#if forward_speed > 0.0:
-			#apply_central_force(
-				#-forward * brake_force
-			#)
-			
-#accelerate backwards
-	#var input := Input.get_axis("backward", "forward")
-#
-	#if input == 0.0:
-		#return
-#
-	#var forward := -global_transform.basis.z
-#
-	#apply_central_force(
-		#forward * input * acceleration_force
-	#)
+
 
 func apply_sinking() -> void:
 

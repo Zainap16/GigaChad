@@ -29,7 +29,7 @@ spring_length = 0.5
 margin = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="camera_mount/SpringArm3D" unique_id=1608264889]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6549256, -0.080693245)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.48481745, -1.4613316)
 current = true
 fov = 50.0
 

@@ -2,6 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://c8be7jt47ep10" path="res://Assets/BLUE OCEAN.ttf" id="1_0ghu6"]
 [ext_resource type="Script" uid="uid://ijr61jsityum" path="res://Scripts/game_over.gd" id="1_5ruhh"]
+[ext_resource type="AudioStream" uid="uid://ppak4enwbkmq" path="res://Music/ChaseShark.mp3" id="3_f7o3v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ruhh"]
 bg_color = Color(0.3863206, 0.836556, 0.8239749, 1)
@@ -140,6 +141,21 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_uvvss")
 theme_override_styles/hover = SubResource("StyleBoxFlat_wa0v1")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_kcidl")
 text = "Exit"
+
+[node name="Fade" type="ColorRect" parent="UI" unique_id=1237966081]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ChaseShark" type="AudioStreamPlayer" parent="." unique_id=209665518]
+stream = ExtResource("3_f7o3v")
+autoplay = true
 
 [connection signal="pressed" from="UI/Control/VBoxContainer/retry" to="." method="_on_retry_pressed"]
 [connection signal="pressed" from="UI/Control/VBoxContainer/Menu" to="." method="_on_menu_pressed"]

@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b1t842g2yf28n" path="res://Assets/sunset.png" id="1_7vrkn"]
 [ext_resource type="Script" uid="uid://cemmqkij853qw" path="res://Scripts/main_menu.gd" id="1_jix8l"]
 [ext_resource type="FontFile" uid="uid://c8be7jt47ep10" path="res://Assets/BLUE OCEAN.ttf" id="2_fu7sn"]
+[ext_resource type="AudioStream" uid="uid://dyeroj1nqvtv4" path="res://Music/GigaBGM.mp3" id="4_ce3w2"]
 
 [sub_resource type="GDScript" id="GDScript_1ehe0"]
 script/source = "extends Node2D
@@ -190,7 +191,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_fu7sn")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_nlkkf")
 theme_override_styles/hover = SubResource("StyleBoxFlat_qe12f")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_0k4wn")
-text = "Options"
+text = "Controls"
 
 [node name="Exit" type="Button" parent="UI/Control/VBoxContainer" unique_id=1498148673]
 layout_mode = 2
@@ -205,6 +206,59 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_dy7ct")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_j5v2v")
 text = "Exit"
 
+[node name="Instructions" type="ColorRect" parent="UI/Control" unique_id=1950941128]
+layout_mode = 0
+offset_left = 305.00003
+offset_top = 85.0
+offset_right = 345.00003
+offset_bottom = 125.0
+scale = Vector2(15.453722, 12.463476)
+color = Color(0, 0, 0, 0.65882355)
+
+[node name="ExitControls" type="Button" parent="UI/Control/Instructions" unique_id=914657780]
+layout_mode = 0
+offset_left = 33.066463
+offset_top = 1.3639854
+offset_right = 146.06647
+offset_bottom = 63.363987
+scale = Vector2(0.05081973, 0.093281336)
+theme_override_font_sizes/font_size = 30
+text = "Exit"
+
+[node name="Controls" type="Label" parent="UI/Control/Instructions" unique_id=1888387214]
+layout_mode = 0
+offset_left = 2.458952
+offset_top = 2.727971
+offset_right = 639.4589
+offset_bottom = 398.72797
+scale = Vector2(0.05438602, 0.089409724)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+text = "W - accceration
+S - reverse
+A/D - steering
+
+Mouse to orbit.
+
+Objective: Escape the Maze"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fade" type="ColorRect" parent="UI" unique_id=1930981738]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="GigaBgm" type="AudioStreamPlayer" parent="." unique_id=698826236]
+stream = ExtResource("4_ce3w2")
+autoplay = true
+
 [connection signal="pressed" from="UI/Control/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="UI/Control/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="UI/Control/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="UI/Control/Instructions/ExitControls" to="." method="_on_exit_controls_pressed"]

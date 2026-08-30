@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b0vywido7ohbl" path="res://Assets/sky_39_2k.png" id="2_y8s6f"]
 [ext_resource type="PackedScene" uid="uid://duamnfufibm1s" path="res://Scenes/surfboard.tscn" id="5_t40n3"]
 [ext_resource type="PackedScene" uid="uid://dy4m4j8uk3812" path="res://Scenes/level_complete.tscn" id="6_udhrh"]
+[ext_resource type="AudioStream" uid="uid://dyeroj1nqvtv4" path="res://Music/GigaBGM.mp3" id="7_hkk18"]
 [ext_resource type="PackedScene" uid="uid://doveaptetws4q" path="res://Scenes/shark_spawn_point_activation.tscn" id="7_t25fw"]
 [ext_resource type="PackedScene" uid="uid://btquwyl2m2hko" path="res://Scenes/Levels/maze_easy.tscn" id="8_t25fw"]
 
@@ -28,7 +29,7 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="Surfboard" parent="." unique_id=499914239 instance=ExtResource("5_t40n3")]
-transform = Transform3D(-0.99829525, 0, 0.058365636, 0, 1, 0, -0.058365636, 0, -0.99829525, -6.4140053, 0, 17.35508)
+transform = Transform3D(0.03920737, 0, -0.99923116, 0, 1, 0, 0.99923116, 0, 0.03920737, -6.4140053, 0, -100.275085)
 collision_layer = 4
 collision_mask = 17
 can_sleep = false
@@ -44,17 +45,50 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 wait_time = 2.0
 one_shot = true
 
-[node name="SharkSpawnArea" parent="." unique_id=1203851588 instance=ExtResource("7_t25fw")]
-
 [node name="MazeEasy" parent="." unique_id=60314087 instance=ExtResource("8_t25fw")]
-
-[node name="SharkSpawnArea2" parent="." unique_id=837547821 instance=ExtResource("7_t25fw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.586835, 0, 27.742958)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22795105, 0, 0)
 
 [node name="LevelComplete" parent="." unique_id=536977157 instance=ExtResource("6_udhrh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.472961, 0, -116.89807)
 
 [node name="LevelComplete2" parent="." unique_id=1910977050 instance=ExtResource("6_udhrh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.862177, 0, 110.74028)
+
+[node name="SharkSpawnNode" type="Node3D" parent="." unique_id=1355421717]
+
+[node name="SharkSpawnArea2" parent="SharkSpawnNode" unique_id=837547821 instance=ExtResource("7_t25fw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.230942, 0, -12.432459)
+
+[node name="SharkSpawnArea8" parent="SharkSpawnNode" unique_id=1203851588 instance=ExtResource("7_t25fw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.79225, 0, -57.055428)
+
+[node name="SharkSpawnArea9" parent="SharkSpawnNode" unique_id=1415136995 instance=ExtResource("7_t25fw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.855667, 0, 7.4551773)
+
+[node name="SharkSpawnArea10" parent="SharkSpawnNode" unique_id=89909516 instance=ExtResource("7_t25fw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -98.08404, 0, -92.16013)
+
+[node name="SharkSpawnArea3" parent="SharkSpawnNode" unique_id=376623043 instance=ExtResource("7_t25fw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.132473, 0, 34.581543)
+
+[node name="SharkSpawnArea4" parent="SharkSpawnNode" unique_id=1940705861 instance=ExtResource("7_t25fw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.132473, 0, 81.995705)
+
+[node name="SharkSpawnArea5" parent="SharkSpawnNode" unique_id=1546561721 instance=ExtResource("7_t25fw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.744675, 0, 81.995705)
+
+[node name="SharkSpawnArea6" parent="SharkSpawnNode" unique_id=1002978923 instance=ExtResource("7_t25fw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -95.12065, 0, 32.757935)
+
+[node name="SharkSpawnArea7" parent="SharkSpawnNode" unique_id=2074300399 instance=ExtResource("7_t25fw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.83957, 0, -35.85582)
+
+[node name="SharkSpawnArea" parent="SharkSpawnNode" unique_id=555689310 instance=ExtResource("7_t25fw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.961319, 0, 91.20178)
+
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=437131717]
+stream = ExtResource("7_hkk18")
+volume_db = -10.0
+autoplay = true
 
 [connection signal="timeout" from="RestartTimer" to="." method="_on_restart_timer_timeout"]
